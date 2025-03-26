@@ -1,0 +1,33 @@
+{
+  "name": "garbage",
+  "version": "0.1.0",
+  "description": "",
+  "type": "module",
+  "private": "true",
+  "scripts": {
+    "start": "webpack serve --open --node-env development",
+    "dev": "webpack --node-env development --watch",
+    "prod": "webpack --node-env production",
+    "server": "nodemon src/server/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "22.13.11",
+    "@typescript-eslint/eslint-plugin": "8.27.0",
+    "@typescript-eslint/parser": "8.27.0",
+    "eslint": "9.22.0",
+    "nodemon": "3.1.9"
+  },
+  "dependencies": {
+    "cors": "2.8.5",
+    "bcrypt": "5.1.1",
+    "dotenv": "16.4.7",
+    "express": "4.21.2",
+    "jsonwebtoken": "9.0.2",
+    "mongoose": "8.11.0",
+    "cookie-parser": "1.4.7",
+    "uid": "2.0.2"
+  }
+}

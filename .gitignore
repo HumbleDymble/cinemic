@@ -1,0 +1,11 @@
+# Environment files
+.env
+
+# WebStorm
+**.idea
+
+# Webpack
+build
+
+# Dependency directories
+node_modules
