@@ -1,442 +1,381 @@
-import { useState, useEffect, useCallback } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import {
-  List,
-  ListItem,
-  ListItemText,
-  ListItemAvatar,
-  Paper,
-  Typography,
-  Box,
-  Fade,
-  Skeleton,
-  CircularProgress,
-  useTheme,
-  alpha,
-  IconButton,
-  Tooltip,
-  Portal,
-} from "@mui/material";
-import {
-  clearSearchData,
-  type ISearch,
-  type SearchState,
-} from "../model/slice";
-import { useAppDispatch } from "@/app/store/store";
-import SearchOffIcon from "@mui/icons-material/SearchOff";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Link, type LinkProps, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import Box from "@mui/material/Box";
+import Fade from "@mui/material/Fade";
+import Grow from "@mui/material/Grow";
+import Typography from "@mui/material/Typography";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import Paper from "@mui/material/Paper";
+import Chip from "@mui/material/Chip";
+import ListItemButton, { type ListItemButtonProps } from "@mui/material/ListItemButton";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
+import Backdrop from "@mui/material/Backdrop";
+import Portal from "@mui/material/Portal";
+import { styled } from "@mui/material/styles";
+import CircularProgress from "@mui/material/CircularProgress";
+import ListItem from "@mui/material/ListItem";
+import Skeleton from "@mui/material/Skeleton";
 import CloseIcon from "@mui/icons-material/Close";
+import type { SearchMovieDtoV1_4 } from "@/entities/media-detail";
 
-export const SearchList = ({ search, searchData }: SearchState) => {
-  const dispatch = useAppDispatch();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const theme = useTheme();
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [selectedIndex, setSelectedIndex] = useState(-1);
-  const [isVisible, setIsVisible] = useState(true);
-  // Add a state to control the fade animation
-  const [fadeOut, setFadeOut] = useState(false);
+interface Props {
+  search: string;
+  clearSearch: () => void;
+  results: SearchMovieDtoV1_4[];
+  selectedIndex: number;
+  onItemClick: (item: SearchMovieDtoV1_4) => void;
+  onItemHover: (index: number) => void;
+  isLoading: boolean;
+  error: boolean;
+}
 
-  // Clear search data when location changes
-  useEffect(() => {
-    dispatch(clearSearchData());
-  }, [location.key, dispatch]);
-
-  // Reset visibility when search changes
-  useEffect(() => {
-    if (search) {
-      setIsVisible(true);
-      setFadeOut(false);
-    }
-  }, [search]);
-
-  // Handle loading state
-  useEffect(() => {
-    if (search) {
-      setIsLoading(true);
-      setError(null);
-      // Simulate loading state for better UX
-      const timer = setTimeout(() => {
-        setIsLoading(false);
-        // Simulate potential error (in a real app, this would be from API response)
-        if (search === "error-test") {
-          setError(
-            "An error occurred while fetching results. Please try again.",
-          );
-        }
-      }, 500);
-      return () => clearTimeout(timer);
-    } else {
-      setSelectedIndex(-1);
-    }
-  }, [search]);
-
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (!search || searchData.length === 0 || !isVisible) return;
-
-      switch (e.key) {
-        case "ArrowDown":
-          e.preventDefault();
-          setSelectedIndex((prev) =>
-            prev < searchData.length - 1 ? prev + 1 : prev,
-          );
-          break;
-        case "ArrowUp":
-          e.preventDefault();
-          setSelectedIndex((prev) => (prev > 0 ? prev - 1 : prev));
-          break;
-        case "Enter":
-          if (selectedIndex >= 0 && selectedIndex < searchData.length) {
-            e.preventDefault();
-            const selectedItem = searchData[selectedIndex];
-            handleItemClick(selectedItem);
-            navigate(`/title/${selectedItem.id}`);
-          }
-          break;
-        case "Escape":
-          e.preventDefault();
-          clearSearchAndInput();
-          break;
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [search, searchData, selectedIndex, dispatch, navigate, isVisible]);
-
-  const handleItemClick = useCallback(
-    (item: ISearch) => {
-      dispatch({
-        type: "recentViewed/operateLocalStorage",
-        payload: item,
-      });
+const StyledListItem = styled(ListItemButton, {
+  shouldForwardProp: (prop) => prop !== "animationDelay",
+})<ListItemButtonProps & LinkProps & { animationDelay?: number }>(
+  ({ theme, animationDelay = 0 }) => ({
+    marginBottom: theme.spacing(1.5),
+    padding: theme.spacing(1),
+    borderRadius: theme.spacing(1),
+    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+    animation: "slideIn 0.4s ease-out forwards",
+    animationDelay: `${animationDelay}ms`,
+    opacity: 0,
+    "&:hover": {
+      transform: "translateY(-2px)",
+      boxShadow: theme.shadows[4],
+      backgroundColor: theme.palette.action.hover,
     },
-    [dispatch],
-  );
+    "&.Mui-selected": {
+      backgroundColor: theme.palette.action.selected,
+      "&:hover": {
+        backgroundColor: theme.palette.action.selected,
+      },
+    },
+    "@keyframes slideIn": {
+      from: { opacity: 0, transform: "translateY(20px)" },
+      to: { opacity: 1, transform: "translateY(0)" },
+    },
+  }),
+);
 
-  // Updated clear function to animate hiding the component
-  const clearSearchAndInput = useCallback(() => {
-    // Start fade out animation
-    setFadeOut(true);
+const SearchPaper = styled(Paper)(({ theme }) => ({
+  position: "absolute",
+  width: "100%",
+  maxHeight: "75vh",
+  overflowY: "auto",
+  borderRadius: theme.spacing(2),
+  boxShadow: "0 20px 40px rgba(0, 0, 0, 0.15)",
+  "&::-webkit-scrollbar": { width: 8 },
+  "&::-webkit-scrollbar-track": { background: theme.palette.grey[100] },
+  "&::-webkit-scrollbar-thumb": { background: theme.palette.grey[400], borderRadius: 4 },
+  "&::-webkit-scrollbar-thumb:hover": { background: theme.palette.grey[600] },
+}));
 
-    // After animation completes, hide the component and clear data
-    setTimeout(() => {
-      setIsVisible(false);
+const ImageContainer = styled(Box)(({ theme }) => ({
+  width: 80,
+  height: 120,
+  borderRadius: theme.spacing(1),
+  overflow: "hidden",
+  boxShadow: theme.shadows[2],
+  border: `1px solid ${theme.palette.divider}`,
+  backgroundColor: theme.palette.grey[100],
+  position: "relative",
+  "& img": {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    transition: "transform 0.3s ease",
+  },
+  "&:hover img": { transform: "scale(1.05)" },
+}));
 
-      // Clear search results
-      dispatch(clearSearchData());
+export const SearchList = ({
+  search,
+  clearSearch,
+  results,
+  selectedIndex,
+  onItemClick,
+  onItemHover,
+  isLoading,
+  error,
+}: Props) => {
+  const { t } = useTranslation();
+  const location = useLocation();
+  const [showList, setShowList] = useState(false);
 
-      // Clear the search input by dispatching a custom action
-      dispatch({
-        type: "search/clearSearchInput",
-        payload: null,
-      });
+  const listRef = useRef<HTMLUListElement | null>(null);
 
-      // Alternative approach: directly manipulate the search input element
-      const searchInput = document.querySelector(
-        'input[type="search"]',
-      ) as HTMLInputElement;
-      if (searchInput) {
-        searchInput.value = "";
-        // Trigger input event to ensure React state is updated
-        searchInput.dispatchEvent(new Event("input", { bubbles: true }));
-      }
-    }, 300); // Match this with the fade duration
-  }, [dispatch]);
+  useEffect(() => {
+    clearSearch();
+  }, [location.pathname, clearSearch]);
 
-  if (!search || !isVisible) {
-    return null;
-  }
+  useEffect(() => {
+    if (search) {
+      setShowList(true);
+      return;
+    }
+    const timeout = setTimeout(() => setShowList(false), 300);
+    return () => clearTimeout(timeout);
+  }, [search]);
 
-  // Image size calculation (20% bigger than previous 90x90)
-  const imageSize = 108; // 90 * 1.2 = 108
+  useEffect(() => {
+    if (selectedIndex < 0) return;
+    const el = listRef.current?.querySelector<HTMLElement>(`[data-index="${selectedIndex}"]`);
+    el?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }, [selectedIndex]);
 
-  // The main content to render
-  const content = (
-    <Fade in={!fadeOut} timeout={300}>
-      <Box
+  const mounted = useMemo(() => Boolean(search) || showList, [search, showList]);
+  if (!mounted) return null;
+
+  const imageSize = 125;
+
+  return (
+    <Portal>
+      <Backdrop
+        open={!!search}
+        onClick={clearSearch}
         sx={{
-          mt: 1,
-          position: "absolute",
-          width: "100%",
-          maxHeight: "75vh",
-          overflowY: "auto",
-          zIndex: 9999,
-          boxShadow: "0 6px 14px rgba(0, 0, 0, 0.12)",
-          backgroundColor: theme.palette.background.paper,
-          borderRadius: theme.shape.borderRadius,
+          zIndex: (t) => t.zIndex.appBar - 2,
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          backdropFilter: "blur(4px)",
         }}
-      >
-        {error ? (
-          <Fade in={true}>
-            <Paper
-              elevation={2}
-              sx={{
-                p: 2.5,
-                textAlign: "center",
-                mt: 1.5,
-                backgroundColor: alpha(theme.palette.error.light, 0.1),
-                border: `1px solid ${theme.palette.error.light}`,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: 1.5,
-              }}
-            >
-              <SearchOffIcon color="error" sx={{ fontSize: 40 }} />
-              <Typography variant="body1" color="error">
-                {error}
-              </Typography>
-              <IconButton
-                onClick={clearSearchAndInput}
-                size="small"
-                color="primary"
-                sx={{ mt: 0.5 }}
-              >
-                <CloseIcon fontSize="small" />{" "}
-                <Typography variant="button" sx={{ ml: 0.5 }}>
-                  Clear
-                </Typography>
-              </IconButton>
-            </Paper>
-          </Fade>
-        ) : search && searchData.length === 0 && !isLoading ? (
-          <Fade in={true}>
-            <Paper
-              elevation={2}
-              sx={{
-                p: 2.5,
-                textAlign: "center",
-                mt: 1.5,
-                backgroundColor: alpha(theme.palette.info.light, 0.05),
-                border: `1px solid ${alpha(theme.palette.divider, 0.2)}`,
-              }}
-            >
-              <Typography variant="body1" color="text.secondary">
-                No results found for "{search}"
-              </Typography>
-              <IconButton
-                onClick={clearSearchAndInput}
-                size="small"
-                sx={{ mt: 1 }}
-                color="primary"
-              >
-                <CloseIcon fontSize="small" />{" "}
-                <Typography variant="button" sx={{ ml: 0.5 }}>
-                  Clear
-                </Typography>
-              </IconButton>
-            </Paper>
-          </Fade>
-        ) : isLoading ? (
-          // Loading skeleton
-          <Box sx={{ position: "relative", p: 1.5 }}>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                py: 1.5,
-                px: 1,
-              }}
-            >
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <CircularProgress size={16} thickness={4} />
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  sx={{ ml: 1.5 }}
-                >
-                  Searching for "{search}"...
-                </Typography>
-              </Box>
-              <Tooltip title="Cancel search">
-                <IconButton onClick={clearSearchAndInput} size="small">
-                  <CloseIcon fontSize="small" />
-                </IconButton>
-              </Tooltip>
-            </Box>
-            {Array.from(new Array(2)).map((_, index) => (
-              <Paper
-                key={`skeleton-${index}`}
-                elevation={2}
-                sx={{ mb: 1.5, p: 1.5 }}
-              >
-                <ListItem alignItems="center">
-                  <ListItemAvatar sx={{ minWidth: imageSize + 20 }}>
-                    <Skeleton
-                      variant="rectangular"
-                      width={imageSize}
-                      height={imageSize}
-                      animation="wave"
-                      sx={{ borderRadius: 1 }}
-                    />
-                  </ListItemAvatar>
-                  <Box sx={{ width: "100%", ml: 1 }}>
-                    <Skeleton
-                      variant="text"
-                      width="80%"
-                      height={24}
-                      animation="wave"
-                    />
-                  </Box>
-                </ListItem>
-              </Paper>
-            ))}
-          </Box>
-        ) : (
-          // Search results
-          <Box>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                p: 1.5,
-                borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
-              }}
-            >
-              <Typography variant="body2" color="text.secondary">
-                Found {searchData.length} result
-                {searchData.length !== 1 ? "s" : ""} for "{search}"
-              </Typography>
-              <Tooltip title="Clear search">
-                <IconButton onClick={clearSearchAndInput} size="small">
-                  <CloseIcon fontSize="small" />
-                </IconButton>
-              </Tooltip>
-            </Box>
+      />
 
-            <List disablePadding>
-              {searchData.map((item: ISearch, index: number) => {
-                const isSelected = selectedIndex === index;
+      <Fade in={!!search} timeout={300}>
+        <Box
+          sx={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            zIndex: (t) => t.zIndex.appBar - 1,
+            mt: "60px",
+            px: 2,
+            maxWidth: 800,
+            width: "100%",
+            mx: "auto",
+            display: search ? "block" : "none",
+          }}
+        >
+          <Grow in={showList} timeout={400}>
+            <SearchPaper elevation={6}>
+              {error ? (
+                <Fade in>
+                  <Paper
+                    elevation={2}
+                    sx={{
+                      p: 2.5,
+                      textAlign: "center",
+                      mt: 1.5,
+                      backgroundColor: "error.lighter",
+                      border: 1,
+                      borderColor: "error.light",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      gap: 1.5,
+                    }}
+                  >
+                    <Typography variant="body1" color="error">
+                      {t("features.search.fetch_error")}
+                    </Typography>
 
-                return (
-                  <Box key={item.id}>
-                    <Fade in={true}>
-                      <Paper
-                        elevation={2}
-                        sx={{
-                          mx: 1.5,
-                          mb: 1.5,
-                          p: 1,
-                          transition: "all 0.2s",
-                          "&:hover": {
-                            transform: "translateY(-2px)",
-                            boxShadow: 4,
-                          },
-                          cursor: "pointer",
-                          border: isSelected
-                            ? `1px solid ${theme.palette.primary.main}`
-                            : "none",
-                          backgroundColor: isSelected
-                            ? alpha(theme.palette.primary.light, 0.1)
-                            : "background.paper",
-                        }}
+                    <IconButton onClick={clearSearch} size="small" color="primary" sx={{ mt: 0.5 }}>
+                      <CloseIcon fontSize="small" />
+                      <Typography variant="button" sx={{ ml: 0.5 }}>
+                        {t("features.search.clear")}
+                      </Typography>
+                    </IconButton>
+                  </Paper>
+                </Fade>
+              ) : isLoading ? (
+                <Box sx={{ position: "relative", p: 1.5 }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      py: 1.5,
+                      px: 1,
+                    }}
+                  >
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <CircularProgress size={16} thickness={4} />
+                      <Typography variant="body2" color="text.secondary" sx={{ ml: 1.5 }}>
+                        {t("features.search.searching_for", { search })}
+                      </Typography>
+                    </Box>
+
+                    <Tooltip title={t("features.search.cancel_search")}>
+                      <IconButton
+                        onClick={clearSearch}
+                        size="small"
+                        aria-label={t("features.search.cancel_search")}
                       >
-                        <ListItem alignItems="center" disableGutters>
-                          <ListItemAvatar sx={{ minWidth: imageSize + 20 }}>
-                            <Link
-                              to={`/title/${item.id}`}
-                              rel="noreferrer"
-                              onClick={() => handleItemClick(item)}
-                              style={{ textDecoration: "none" }}
-                            >
-                              <Box
-                                sx={{
-                                  width: imageSize,
-                                  height: imageSize,
-                                  borderRadius: 1,
-                                  overflow: "hidden",
-                                  boxShadow: 1,
-                                  border: `1px solid ${alpha(theme.palette.divider, 0.2)}`,
-                                  transition: "transform 0.2s",
-                                  "&:hover": {
-                                    transform: "scale(1.05)",
-                                  },
-                                }}
-                              >
+                        <CloseIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
+                  </Box>
+
+                  {Array.from({ length: 2 }).map((_, index) => (
+                    <Paper key={`skeleton-${index}`} elevation={2} sx={{ mb: 1.5, p: 1.5 }}>
+                      <ListItem alignItems="center">
+                        <ListItemAvatar sx={{ minWidth: imageSize + 20 }}>
+                          <Skeleton
+                            variant="rectangular"
+                            width={imageSize}
+                            height={imageSize}
+                            animation="wave"
+                            sx={{ borderRadius: 1 }}
+                          />
+                        </ListItemAvatar>
+                        <Box sx={{ width: "100%", ml: 1 }}>
+                          <Skeleton variant="text" width="80%" height={24} animation="wave" />
+                        </Box>
+                      </ListItem>
+                    </Paper>
+                  ))}
+                </Box>
+              ) : (
+                <Fade in={!isLoading} timeout={200}>
+                  <Box>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        p: 2,
+                        borderBottom: 1,
+                        borderColor: "divider",
+                        background: (theme) => theme.palette.grey[50],
+                      }}
+                    >
+                      <Box>
+                        <Typography variant="body2" color="text.secondary">
+                          {t("features.search.found_results", { count: results.length })}
+                        </Typography>
+                        <Typography variant="subtitle2" fontWeight={600} color="primary">
+                          {t("features.search.query", { search })}
+                        </Typography>
+                      </Box>
+
+                      <Tooltip title={t("features.search.clear_search")}>
+                        <IconButton
+                          onClick={clearSearch}
+                          size="small"
+                          aria-label={t("features.search.clear_search")}
+                          sx={{
+                            transition: "transform 0.2s",
+                            "&:hover": { transform: "rotate(90deg)" },
+                          }}
+                        >
+                          <CloseIcon fontSize="small" />
+                        </IconButton>
+                      </Tooltip>
+                    </Box>
+
+                    <List ref={listRef} disablePadding sx={{ p: 2 }}>
+                      {results.map((item, index) => {
+                        const isSelected = index === selectedIndex;
+
+                        const title =
+                          item.name ??
+                          item.enName ??
+                          item.alternativeName ??
+                          t("features.search.untitled");
+
+                        const imageUrl = item.poster?.previewUrl ?? item.poster?.url ?? "";
+                        const year = item.year ? `(${item.year})` : "";
+                        const rating = item.rating?.kp ?? item.rating?.imdb ?? 0;
+
+                        return (
+                          <StyledListItem
+                            key={item.id ?? `${title}-${index}`}
+                            component={Link}
+                            to={item.id != null ? `/title/${item.id}` : "#"}
+                            onMouseEnter={() => onItemHover(index)}
+                            onClick={() => onItemClick(item)}
+                            selected={isSelected}
+                            data-index={index}
+                            animationDelay={index * 50}
+                          >
+                            <ListItemAvatar sx={{ minWidth: 100 }}>
+                              <ImageContainer>
                                 <img
-                                  src={item.image}
-                                  alt={item.title}
-                                  style={{
-                                    width: "100%",
-                                    height: "100%",
-                                    objectFit: "cover",
+                                  src={imageUrl}
+                                  alt={title}
+                                  loading="lazy"
+                                  onError={(e) => {
+                                    (e.target as HTMLImageElement).src = "";
                                   }}
                                 />
-                              </Box>
-                            </Link>
-                          </ListItemAvatar>
-                          <Link
-                            to={`/title/${item.id}`}
-                            rel="noreferrer"
-                            onClick={() => handleItemClick(item)}
-                            style={{
-                              textDecoration: "none",
-                              color: "inherit",
-                              width: "100%",
-                            }}
-                          >
+                              </ImageContainer>
+                            </ListItemAvatar>
+
                             <ListItemText
                               primary={
-                                <Typography
-                                  variant="subtitle1"
-                                  component="div"
-                                  sx={{
-                                    color: isSelected
-                                      ? theme.palette.primary.main
-                                      : "text.primary",
-                                    fontWeight: isSelected
-                                      ? "medium"
-                                      : "normal",
-                                    overflow: "hidden",
-                                    textOverflow: "ellipsis",
-                                    display: "-webkit-box",
-                                    WebkitLineClamp: 2,
-                                    WebkitBoxOrient: "vertical",
-                                  }}
+                                <Box
+                                  display="flex"
+                                  justifyContent="space-between"
+                                  alignItems="start"
                                 >
-                                  {item.title}
-                                </Typography>
+                                  <Typography
+                                    variant="subtitle1"
+                                    sx={{
+                                      fontWeight: isSelected ? 600 : 500,
+                                      color: isSelected ? "primary.main" : "text.primary",
+                                      transition: "color 0.2s",
+                                    }}
+                                  >
+                                    {title}
+                                  </Typography>
+
+                                  {rating > 0 && (
+                                    <Chip
+                                      label={rating.toFixed(1)}
+                                      size="small"
+                                      color={rating > 7 ? "success" : "default"}
+                                      variant="outlined"
+                                      sx={{ ml: 1, height: 20, fontSize: "0.75rem" }}
+                                    />
+                                  )}
+                                </Box>
+                              }
+                              secondary={
+                                <Box
+                                  component="span"
+                                  display="flex"
+                                  flexDirection="column"
+                                  gap={0.5}
+                                  mt={0.5}
+                                >
+                                  <Typography variant="body2" color="text.secondary">
+                                    {year} {item.type ? `• ${item.type}` : ""}
+                                  </Typography>
+
+                                  {item.enName && item.enName !== title && (
+                                    <Typography variant="caption" color="text.secondary">
+                                      {t("features.search.original")}: {item.enName}
+                                    </Typography>
+                                  )}
+                                </Box>
                               }
                             />
-                          </Link>
-                        </ListItem>
-                      </Paper>
-                    </Fade>
+                          </StyledListItem>
+                        );
+                      })}
+                    </List>
                   </Box>
-                );
-              })}
-            </List>
-          </Box>
-        )}
-      </Box>
-    </Fade>
-  );
-
-  // Use Portal to render the component at the top level of the DOM
-  return (
-    <Portal container={document.body}>
-      <Box
-        sx={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 9999,
-          mt: "60px", // Adjust based on your header height
-          px: 2,
-          maxWidth: "800px", // Increased from 600px to make it bigger
-          mx: "auto",
-          width: "100%",
-        }}
-      >
-        {content}
-      </Box>
+                </Fade>
+              )}
+            </SearchPaper>
+          </Grow>
+        </Box>
+      </Fade>
     </Portal>
   );
 };

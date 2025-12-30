@@ -1,7 +1,12 @@
-import { IPaths, IPathsClient } from "config/types";
-import path from "path";
-import { type Configuration } from "webpack";
-import { type Mode, webpackClient, webpackServer } from "./config";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { Configuration } from "webpack";
+import { IPaths, Mode } from "./config/types.js";
+import { webpackClient } from "./config/webpackClient.js";
+import { webpackServer } from "./config/webpackServer.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 interface IEnv {
   mode: Mode;
@@ -10,7 +15,7 @@ interface IEnv {
 }
 
 export default (env: IEnv): Configuration[] => {
-  const pathClient: IPathsClient = {
+  const pathClient: IPaths = {
     output: path.resolve("build/client"),
     entry: path.resolve("src/client/app/entrypoint", "index.tsx"),
     src: path.resolve(__dirname, "src/client"),
@@ -18,20 +23,24 @@ export default (env: IEnv): Configuration[] => {
 
   const pathServer: IPaths = {
     output: path.resolve("build/server"),
-    entry: path.resolve("src/server", "index.js"),
+    entry: path.resolve("src/server/app/entrypoint", "index.ts"),
+    src: path.resolve(__dirname, "src/server"),
   };
 
-  const configServer: Configuration = webpackServer({
-    pathServer,
-    mode: env.mode ?? "production",
-  });
+  const configClient: Configuration = {
+    name: "client",
+    ...webpackClient({
+      port: env.port ?? 3443,
+      pathClient,
+      mode: env.mode ?? "production",
+      analyzer: env.analyzer,
+    }),
+  };
 
-  const configClient: Configuration = webpackClient({
-    port: env.port ?? 5555,
-    pathClient,
-    mode: env.mode ?? "production",
-    analyzer: env.analyzer,
-  });
+  const configServer: Configuration = {
+    name: "server",
+    ...webpackServer({ port: env.port ?? 8443, pathServer, mode: env.mode ?? "production" }),
+  };
 
-  return [configServer, configClient];
+  return [configClient, configServer];
 };

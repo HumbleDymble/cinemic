@@ -1,15 +1,17 @@
-import HtmlWebpackPlugin from "html-webpack-plugin";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import path from "path";
-import webpack, { type Configuration } from "webpack";
-import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
-import { type IOptions } from "./types";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import type { Configuration } from "webpack";
+import webpack from "webpack";
 import Dotenv from "dotenv-webpack";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
+import CopyPlugin from "copy-webpack-plugin";
+import type { IOptions } from "./types.js";
 
-export function plugins({
-  mode,
-  analyzer,
-}: IOptions): Configuration["plugins"] {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export const plugins = ({ mode, analyzer }: IOptions): Configuration["plugins"] => {
   const isDev = mode === "development";
   const isProd = mode === "production";
 
@@ -18,29 +20,33 @@ export function plugins({
       template: path.resolve("public", "index.html"),
       favicon: path.resolve("public", "favicon.ico"),
     }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve("src", "client", "shared", "i18n", "locales"),
+          to: "locales",
+        },
+      ],
+    }),
   ];
 
   if (isDev) {
     plugins.push(
       new webpack.ProgressPlugin({
-        // Dev-specific options
-        percentBy: "entries",
+        percentBy: "modules",
         profile: true,
       }),
-      new Dotenv()
+      new Dotenv({
+        path: path.resolve(__dirname, "../.env.production"),
+      }),
     );
   }
 
   if (isProd) {
     plugins.push(
       new webpack.ProgressPlugin({
-        // Production-specific options
         percentBy: "modules",
-        profile: false,
-      }),
-      new MiniCssExtractPlugin({
-        filename: "css/[name].[contenthash:8].css",
-        chunkFilename: "css/[name].[contenthash:8].css",
+        profile: true,
       }),
     );
   }
@@ -50,4 +56,4 @@ export function plugins({
   }
 
   return plugins;
-}
+};

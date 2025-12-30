@@ -1,21 +1,16 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import { api } from "@/shared/api/api";
-import { AuthSlice } from "@/pages/Auth/model/authSlice";
-import { getCookiesSlice } from "@/pages/Auth/model/getCookiesSlice";
-import { searchSlice } from "@/features/search-bar/model/slice";
-import { titlePageSlice } from "@/pages/Title/model/slice";
-import { recentViewedSlice } from "@/features/RecentViewed/model/slice";
-import { changePasswordSlice } from "@/pages/Profile/model/slice";
-import { watch } from "fs";
-import { watchlistSlice } from "@/pages/Watchlist/model/slice";
+import { themeSlice } from "@/features/theme-switcher";
+import { recentViewedSlice } from "@/features/search-bar";
+import { authSlice } from "@/entities/user";
+import { watchlistSlice } from "@/entities/watchlist";
+import { snackbarSlice } from "@/entities/alert";
+import { baseApi } from "@/shared/api";
 
 export const rootReducer = combineReducers({
-  [api.reducerPath]: api.reducer,
-  auth: AuthSlice.reducer,
-  getCookies: getCookiesSlice.reducer,
-  search: searchSlice.reducer,
-  title: titlePageSlice.reducer,
+  [baseApi.reducerPath]: baseApi.reducer,
+  theme: themeSlice.reducer,
+  auth: authSlice.reducer,
   recentViewed: recentViewedSlice.reducer,
-  changePassword: changePasswordSlice.reducer,
-  watchlist: watchlistSlice.reducer
+  watchlist: watchlistSlice.reducer,
+  snackbar: snackbarSlice.reducer,
 });

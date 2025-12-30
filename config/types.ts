@@ -3,9 +3,6 @@ export type Mode = "development" | "production";
 export interface IPaths {
   entry: string;
   output: string;
-}
-
-export interface IPathsClient extends IPaths {
   src: string;
 }
 
@@ -16,9 +13,10 @@ export interface IOptions {
 
 export interface IClient extends IOptions {
   port: number;
-  pathClient: IPathsClient;  
+  pathClient: IPaths;
 }
 
 export interface IServer extends IOptions {
+  port: number;
   pathServer: IPaths;
 }

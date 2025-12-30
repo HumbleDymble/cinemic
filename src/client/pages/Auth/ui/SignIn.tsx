@@ -1,140 +1,132 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { api } from "@/shared/api/api";
-import { RootState, useAppDispatch, useAppSelector } from "@/app/store/store";
-import { signIn } from "../model/authSlice";
-import {
-  Box,
-  Checkbox,
-  CssBaseline,
-  FormControlLabel,
-  TextField,
-  Typography,
-  Button,
-  Container,
-  useMediaQuery,
-} from "@mui/material";
-import Grid from "@mui/material/Grid2";
-import { useFetchCookies } from "@/pages/Auth/model/useFetchCookies";
+import { Link as RouterLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
+import IconButton from "@mui/material/IconButton";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import LockResetIcon from "@mui/icons-material/LockReset";
+import { useSignIn } from "../model/useSignIn";
+import { Footer } from "@/widgets/footer";
 
 export const SignIn = () => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [login] = api.useLoginMutation();
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const fetchCookies = useFetchCookies();
-
-  const { uid, refreshToken } = useAppSelector(
-    (state: RootState) => state.getCookies,
-  );
-
-  const isMobile = useMediaQuery("(max-width:600px)");
-
-  const changeHandlerEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
-  const changeHandlerPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const user = await login({ email, password }).unwrap();
-      dispatch(signIn(user));
-      navigate("/", { replace: true });
-    } catch (error) {
-      console.error("Login failed:", error);
-    }
-  };
-
-  React.useEffect(() => {
-    fetchCookies();
-  }, []);
-
-  React.useEffect(() => {
-    if (uid || refreshToken) {
-      navigate("/");
-    }
-  }, [uid, refreshToken, navigate]);
+  const { t } = useTranslation();
+  const { isMobile, changeHandler, handleSubmit } = useSignIn();
 
   return (
-    <Container component="main" maxWidth="sm">
-      <CssBaseline />
-      <Box
+    <Box
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        bgcolor: "background.default",
+      }}
+    >
+      <Container
+        component="main"
+        maxWidth="sm"
         sx={{
-          marginTop: isMobile ? 6 : 8,
+          flexGrow: 1,
           display: "flex",
-          flexDirection: "column",
           alignItems: "center",
-          padding: isMobile ? 2 : 4,
-          boxShadow: isMobile ? "none" : "0px 4px 12px rgba(0, 0, 0, 0.1)",
-          borderRadius: isMobile ? 0 : 2,
-          backgroundColor: isMobile ? "transparent" : "white",
+          justifyContent: "center",
+          px: { xs: 2, sm: 0 },
+          py: 4,
         }}
       >
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
         <Box
-          component="form"
-          onSubmit={handleSubmit}
-          noValidate
-          sx={{ mt: 2, width: "100%" }}
+          sx={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            padding: isMobile ? 2 : 4,
+            borderRadius: isMobile ? 0 : 2,
+            backgroundColor: isMobile ? "transparent" : "background.paper",
+            boxShadow: (theme) =>
+              isMobile
+                ? "none"
+                : theme.palette.mode === "light"
+                  ? "0px 4px 12px rgba(0, 0, 0, 0.1)"
+                  : "0px 4px 12px rgba(0, 0, 0, 0.6)",
+          }}
         >
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            onChange={changeHandlerEmail}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            onChange={changeHandlerPassword}
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2, py: 1.5 }}
+          <IconButton
+            component={RouterLink}
+            to="/"
+            edge="start"
+            aria-label={t("pages.auth.common.aria_go_home")}
+            sx={{
+              alignSelf: "flex-start",
+              mb: { xs: 1, sm: 1.5 },
+              color: "text.secondary",
+              "&:hover": { color: "text.primary" },
+            }}
           >
-            Sign In
-          </Button>
-          <Grid container justifyContent="space-between">
-            <Grid>
-              <Link to="#" style={{ textDecoration: "none", color: "blue" }}>
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid>
+            <ArrowBackIcon />
+          </IconButton>
+          <Typography variant="h3" color="text.primary">
+            {t("pages.auth.signin.title")}
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ my: 2, width: "100%" }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label={t("pages.auth.common.email_label")}
+              name="email"
+              autoComplete="email"
+              onChange={changeHandler}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label={t("pages.auth.common.password_label")}
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              onChange={changeHandler}
+            />
+            <Link
+              component={RouterLink}
+              to="#"
+              underline="hover"
+              color="primary"
+              sx={{
+                mt: 1,
+                fontWeight: 600,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 0.5,
+              }}
+            >
+              <LockResetIcon sx={{ fontSize: 18 }} />
+              {t("pages.auth.signin.forgot_password")}
+            </Link>
+            <Button type="submit" fullWidth variant="contained" sx={{ my: 3, py: 1.5 }}>
+              {t("pages.auth.signin.submit")}
+            </Button>
+            <Typography variant="body1" color="text.secondary">
+              {t("pages.auth.signin.no_account")}{" "}
               <Link
-                to="/user/signup"
-                style={{ textDecoration: "none", color: "blue" }}
+                component={RouterLink}
+                to="/auth/signup"
+                underline="hover"
+                color="primary"
+                sx={{ fontWeight: 600 }}
               >
-                Don't have an account? Sign Up
+                {t("pages.auth.signup.title")}
               </Link>
-            </Grid>
-          </Grid>
+            </Typography>
+          </Box>
         </Box>
-      </Box>
-    </Container>
+      </Container>
+      <Footer />
+    </Box>
   );
 };

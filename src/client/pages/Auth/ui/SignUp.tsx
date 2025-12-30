@@ -1,140 +1,150 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { signUp } from "../model/authSlice";
-import { api } from "@/shared/api/api";
-import { RootState, useAppDispatch, useAppSelector } from "@/app/store/store";
-import {
-  Box,
-  Checkbox,
-  CssBaseline,
-  FormControlLabel,
-  TextField,
-  Typography,
-  Button,
-  Container,
-} from "@mui/material";
-import Grid from "@mui/material/Grid2";
-import { useFetchCookies } from "@/pages/Auth/model/useFetchCookies";
+import { Link as RouterLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import Link from "@mui/material/Link";
+import IconButton from "@mui/material/IconButton";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useSignUp } from "../model/useSignUp";
+import { Footer } from "@/widgets/footer";
 
-export const SignUp = () => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [username, setUsername] = React.useState("");
-  const dispatch = useAppDispatch();
-  const [register] = api.useRegisterMutation();
-  const navigate = useNavigate();
-  const fetchCookies = useFetchCookies();
-  const { uid, refreshToken } = useAppSelector(
-    (state: RootState) => state.getCookies,
-  );
-
-  React.useEffect(() => {
-    fetchCookies();
-  }, []);
-
-  React.useEffect(() => {
-    if (uid || refreshToken) {
-      navigate("/");
-    }
-  }, [uid, refreshToken, navigate]);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const user = await register({ email, password, username }).unwrap();
-      dispatch(signUp(user));
-      navigate("/", { replace: true });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+const SignUpErrorAction = () => {
+  const { t } = useTranslation();
 
   return (
-    <Container component="main" maxWidth="sm">
-      <CssBaseline />
-      <Box
+    <>
+      <Link
+        component={RouterLink}
+        to="/auth/signin"
+        sx={{ mr: 1.5, color: "text.primary", textDecoration: "underline" }}
+      >
+        {t("pages.auth.signin.title")}
+      </Link>
+      <Link
+        component={RouterLink}
+        to="/"
+        sx={{ color: "text.primary", textDecoration: "underline" }}
+      >
+        {t("pages.auth.common.home")}
+      </Link>
+    </>
+  );
+};
+
+export const SignUp = () => {
+  const { t } = useTranslation();
+  const { isMobile, handleRegistration, handleSubmit } = useSignUp(<SignUpErrorAction />);
+
+  return (
+    <Box
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        bgcolor: "background.default",
+      }}
+    >
+      <Container
+        component="main"
+        maxWidth="sm"
         sx={{
+          flexGrow: 1,
           display: "flex",
-          flexDirection: "column",
           alignItems: "center",
-          mt: 8,
-          p: 3,
-          borderRadius: 2,
-          boxShadow: 3,
-          backgroundColor: "background.paper",
+          justifyContent: "center",
+          px: { xs: 2, sm: 0 },
+          py: 4,
         }}
       >
-        <Typography component="h1" variant="h5" gutterBottom>
-          Sign Up
-        </Typography>
-        <Box
-          component="form"
-          onSubmit={handleSubmit}
-          noValidate
-          sx={{ width: "100%" }}
-        >
-          <Grid container spacing={2}>
-            <Grid size={{ xs: 12 }}>
-              <TextField
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </Grid>
-            <Grid size={{ xs: 12 }}>
-              <TextField
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="new-password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </Grid>
-            <Grid size={{ xs: 12 }}>
-              <TextField
-                required
-                fullWidth
-                id="username"
-                label="Username"
-                name="username"
-                autoComplete="username"
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </Grid>
-            <Grid size={{ xs: 12 }}>
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+        <Box sx={{ width: "100%", display: "flex", flexDirection: "column" }}>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              p: isMobile ? 2 : 4,
+              borderRadius: isMobile ? 0 : 2,
+              backgroundColor: isMobile ? "transparent" : "background.paper",
+              boxShadow: (theme) =>
+                isMobile
+                  ? "none"
+                  : theme.palette.mode === "light"
+                    ? "0px 4px 12px rgba(0, 0, 0, 0.1)"
+                    : "0px 4px 12px rgba(0, 0, 0, 0.6)",
+            }}
           >
-            Sign Up
-          </Button>
-          <Grid container justifyContent="space-between">
-            <Grid>
-              <Link to="#">Forgot password?</Link>
-            </Grid>
-            <Grid>
-              <Typography variant="body2">
-                Have an account? <Link to="/user/signin">Sign In</Link>
+            <IconButton
+              component={RouterLink}
+              to="/"
+              edge="start"
+              aria-label={t("pages.auth.common.aria_go_home")}
+              sx={{
+                alignSelf: "flex-start",
+                mb: { xs: 1, sm: 1.5 },
+                color: "text.secondary",
+                "&:hover": { color: "text.primary" },
+              }}
+            >
+              <ArrowBackIcon />
+            </IconButton>
+            <Typography variant="h3" component="h1" color="text.primary">
+              {t("pages.auth.signup.title")}
+            </Typography>
+            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ my: 2, width: "100%" }}>
+              <Stack spacing={2}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label={t("pages.auth.common.email_label")}
+                  name="email"
+                  autoComplete="email"
+                  onChange={handleRegistration}
+                />
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label={t("pages.auth.common.password_label")}
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                  onChange={handleRegistration}
+                />
+                <TextField
+                  required
+                  fullWidth
+                  id="username"
+                  label={t("pages.auth.common.username_label")}
+                  name="username"
+                  autoComplete="username"
+                  onChange={handleRegistration}
+                />
+              </Stack>
+              <Button type="submit" fullWidth variant="contained" sx={{ my: 3, py: 1.5 }}>
+                {t("pages.auth.signup.submit")}
+              </Button>
+              <Typography variant="body1" color="text.secondary">
+                {t("pages.auth.signup.have_account")}{" "}
+                <Link
+                  component={RouterLink}
+                  to="/auth/signin"
+                  underline="hover"
+                  color="primary"
+                  sx={{ fontWeight: 600 }}
+                >
+                  {t("pages.auth.signin.title")}
+                </Link>
               </Typography>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </Box>
-      </Box>
-    </Container>
+      </Container>
+      <Footer />
+    </Box>
   );
 };

@@ -1,8 +1,11 @@
 # Environment files
-.env
+.env.keys
 
 # WebStorm
 **.idea
+
+# HTML
+**/*.html
 
 # Webpack
 build

@@ -1,85 +1,25 @@
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import { type ModuleOptions } from "webpack";
-import { type IOptions } from "./types";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import type { ModuleOptions } from "webpack";
+import type { IOptions } from "./types.js";
 
-export function loaders(options: IOptions): ModuleOptions["rules"] {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export const loaders = (options: IOptions): ModuleOptions["rules"] => {
   const isDev = options.mode === "development";
 
-  // const assetLoader = {
-  //     test: /\.(png|jpg|jpeg|gif)$/i,
-  //     type: 'asset/resource',
-  // }
-
-  // const svgrLoader = {
-  //     test: /\.svg$/i,
-  //     use: [
-  //         {
-  //             Loader: '@svgr/webpack',
-  //             options: {
-  //                 icon: true,
-  //                 svgoConfig: {
-  //                     plugins: [
-  //                         {
-  //                             name: 'convertColors',
-  //                             params: {
-  //                                 currentColor: true,
-  //                             }
-  //                         }
-  //                     ]
-  //                 }
-  //             }
-  //         }
-  //     ],
-  // }
-
-  const scssLoader = {
-    test: /\.(css|scss|sass)$/,
-    use: [
-      // Creates `style` nodes from JS strings
-      isDev ? "style-loader" : MiniCssExtractPlugin.loader,
-      // Translates CSS into CommonJS
-      {
-        loader: "css-loader",
+  return [
+    {
+      test: /\.[jt]sx?$/,
+      exclude: /node_modules/,
+      use: {
+        loader: "swc-loader",
         options: {
-          modules: {
-            auto: true,
-            localIdentName: isDev
-              ? "[name]__[local]--[hash:base64:5]"
-              : "[hash:base64:8]",
-            exportLocalsConvention: "camelCase",
-          },
+          configFile: path.resolve(__dirname, "../.swcrc.web.json"),
+          sourceMaps: isDev,
         },
       },
-      // Compiles Sass to CSS
-      "sass-loader",
-    ],
-  };
-
-  const tsLoader = {
-    test: /\.tsx?$/,
-    use: "ts-Loader",
-    exclude: /node_modules/,
-  };
-
-  const babelLoader = {
-    test: /\.(js|jsx)$/,
-    exclude: /node_modules/,
-    use: {
-      loader: "babel-Loader",
-      options: {
-        presets: [
-          "@babel/preset-env",
-          "@babel/preset-typescript",
-          [
-            "@babel/preset-react",
-            {
-              runtime: isDev ? "classic" : "automatic",
-            },
-          ],
-        ],
-      },
     },
-  };
-
-  return [scssLoader, tsLoader, babelLoader];
-}
+  ];
+};

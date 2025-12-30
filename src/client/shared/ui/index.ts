@@ -1,2 +1,1 @@
-export { PageNotFound } from "./PageNotFound/PageNotFound";
-export { Loader } from "./Loader/Loader";
+export { Loader } from "./loader/Loader";
