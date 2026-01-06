@@ -9,6 +9,7 @@ import { alpha, styled, useTheme } from "@mui/material/styles";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { RecentViewed } from "./RecentViewed";
 import { PopularNow } from "./PopularNow";
+import { Best50Titles } from "./Best50Titles";
 import { Navbar } from "@/widgets/navbar";
 import { Footer } from "@/widgets/footer";
 import { useAppSelector } from "@/shared/config";
@@ -76,7 +77,9 @@ export const Home = () => {
         <PopularNow />
 
         <Container maxWidth="lg" sx={{ py: { xs: 4, md: 8 } }}>
-          <Box sx={{ mb: { xs: 2, md: 3 } }}>{/*<Best50Titles />*/}</Box>
+          <Box sx={{ mb: { xs: 2, md: 3 } }}>
+            <Best50Titles />
+          </Box>
 
           <Box sx={{ mb: { xs: 2, md: 3 } }}>
             <Box

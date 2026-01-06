@@ -1,7 +1,7 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { Configuration } from "webpack";
-import { IPaths, Mode } from "./config/types.js";
+import type { Configuration } from "webpack";
+import type { IPaths, Mode } from "./config/types.js";
 import { webpackClient } from "./config/webpackClient.js";
 import { webpackServer } from "./config/webpackServer.js";
 

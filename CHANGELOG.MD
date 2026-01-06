@@ -1,3 +1,13 @@
+# [1.0.1] - 2025-01-06
+
+* Set explicit `import type` to config files
+* Fixed `Watchlist` component: now it can display for both languages ru and en
+* Fixed `EsLint` configuration compatibility
+* Update deps
+* Removed unused `tsconfigs`
+* Pages `auth`, `home`, `watchlist` are now start with lower case like it should be
+* Uncomment `Best50Titles` component
+
 # [1.0.0] - 2025-12-30
 
 ## 🚀 The "Production Ready" Update

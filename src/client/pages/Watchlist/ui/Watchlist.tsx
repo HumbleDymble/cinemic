@@ -7,15 +7,22 @@ import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import { WatchlistItem } from "./WatchlistItem";
 import { MovieDetailDialog } from "./MovieDetailDialog";
-import { useGetWatchlist } from "../model/useGetWatchlist";
 import { Navbar } from "@/widgets/navbar";
 import { Footer } from "@/widgets/footer";
 import type { MovieDtoV1_4 } from "@/entities/media-detail";
+import { useGetWatchlistQuery } from "@/entities/watchlist";
 import { Loader } from "@/shared/ui";
+import { useAppSelector } from "@/shared/config";
 
 export const Watchlist = () => {
   const { t } = useTranslation();
-  const { token, watchlistIds, loadingIds } = useGetWatchlist();
+  const token = useAppSelector((state) => state.auth.accessToken);
+
+  const { data, isLoading: loadingIds } = useGetWatchlistQuery(undefined, {
+    skip: !token,
+  });
+
+  const watchlistIds = data?.watchlist ?? [];
   const [selected, setSelected] = useState<MovieDtoV1_4 | null>(null);
 
   const handleOpen = useCallback((item: MovieDtoV1_4) => setSelected(item), []);

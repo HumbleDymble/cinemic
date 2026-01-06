@@ -1,7 +1,29 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.node.json"},
-    { "path": "./tsconfig.web.json"}
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/client/*"
+      ]
+    }
+  },
+  "include": [
+    "src/client/**/*",
+    "eslint.config.ts",
+    "webpack.config.ts",
+    "config/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }

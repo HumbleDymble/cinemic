@@ -2,7 +2,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { Configuration } from "webpack";
 import nodeExternals from "webpack-node-externals";
-import { IServer } from "./types.js";
+import type { IServer } from "./types.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

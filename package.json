@@ -1,6 +1,6 @@
 {
-  "name": "garbage",
-  "version": "1.0.0",
+  "name": "cinemic",
+  "version": "1.0.1",
   "description": "",
   "type": "module",
   "scripts": {
@@ -8,9 +8,9 @@
     "dev": "cross-env TSX_TSCONFIG_PATH=tsconfig.node.json NODE_OPTIONS=\"--import tsx\" webpack --config webpack.config.ts --config-name client --env mode=development",
     "prod": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.node.json NODE_OPTIONS=\"--import tsx\" webpack --config webpack.config.ts --config-name client --env mode=production",
     "prod:analyze": "cross-env NODE_ENV=production TS_NODE_PROJECT=tsconfig.node.json NODE_OPTIONS=\"--import tsx\" webpack --config webpack.config.ts --config-name client --env mode=production --env analyzer=true",
-    "type-check": "tsc --noEmit --project tsconfig.web.json",
+    "type-check": "tsc --noEmit",
     "server": "dotenvx run -f .env -- nodemon --watch src/server --ext js,ts,json --exec \"tsx --tsconfig tsconfig.node.json src/server/app/entrypoint/index.ts\"",
-    "dep:cycles:client": "madge --extensions ts,tsx,js --ts-config tsconfig.web.json --circular src/client",
+    "dep:cycles:client": "madge --extensions ts,tsx,js --ts-config tsconfig.json --circular src/client",
     "dep:cycles:server": "madge --extensions ts,js --ts-config tsconfig.node.json --circular src/server",
     "test": "dotenvx run -f .env.production -- jest"
   },
@@ -77,7 +77,7 @@
     "express": "5.2.1",
     "i18next": "25.7.3",
     "jsonwebtoken": "9.0.3",
-    "mongoose": "8.20.4",
+    "mongoose": "8.21.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-i18next": "16.5.0",

@@ -5,16 +5,16 @@ import globals from "globals";
 
 export default defineConfig([
   {
-    ignores: ["**/node_modules/**", "**/build/**", "**/*.config.ts", "tsconfig.json"],
+    ignores: ["**/node_modules/**", "**/build/**", "**/*.config.ts", "**/public/**"],
   },
   js.configs.recommended,
-  tsEslint.configs.recommendedTypeChecked,
-  tsEslint.configs.stylisticTypeChecked,
+  ...tsEslint.configs.recommendedTypeChecked,
+  ...tsEslint.configs.stylisticTypeChecked,
   {
-    files: ["**/*.{js,jsx,ts,tsx}"],
+    files: ["**/*.{ts,tsx}"],
     languageOptions: {
       parser: tsEslint.parser,
-      parserOptions: { project: "./tsconfig.eslint.json" },
+      parserOptions: { project: ["tsconfig.json", "tsconfig.node.json"] },
     },
     plugins: { "@typescript-eslint": tsEslint.plugin },
     rules: {
