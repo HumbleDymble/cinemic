@@ -1,0 +1,732 @@
+{
+  "features": {
+    "add-to-watchlist": {
+      "tooltip_guest": "Log in to use watchlist",
+      "button_action": "Watch later"
+    },
+    "user-rating": {
+      "unknown_title": "Unknown Title",
+      "button_rate": "Rate",
+      "tooltip_login": "Log in to rate",
+      "tooltip_rated": "Your rating: {{rating}}/10. Click to change.",
+      "tooltip_rate": "Click to rate",
+      "dialog": {
+        "title": "Rate \"{{title}}\"",
+        "cancel": "Cancel",
+        "submit": "Submit",
+        "remove_aria": "Remove rating"
+      }
+    },
+    "theme-switcher": {
+      "switch_to_dark": "Switch to dark mode",
+      "switch_to_light": "Switch to light mode"
+    },
+    "search": {
+      "placeholder": "Search movies, series…",
+      "aria_input": "Search movies and series",
+      "aria_clear": "Clear search",
+      "fetch_error": "Fetch error",
+      "clear": "Clear",
+      "searching_for": "Searching for \"{{search}}\"...",
+      "cancel_search": "Cancel search",
+      "clear_search": "Clear search",
+      "found_results_one": "Found {{count}} result for",
+      "found_results_many": "Found {{count}} results for",
+      "query": "\"{{search}}\"",
+      "untitled": "Untitled",
+      "original": "Original"
+    }
+  },
+  "pages": {
+    "auth": {
+      "common": {
+        "aria_go_home": "Go to home",
+        "home": "Home",
+        "email_label": "Email Address",
+        "password_label": "Password",
+        "username_label": "Username"
+      },
+      "signin": {
+        "title": "Sign In",
+        "submit": "Sign In",
+        "forgot_password": "Forgot password?",
+        "no_account": "Don't have an account?",
+        "snackbar_invalid_credentials": "Invalid password or user not found"
+      },
+      "signup": {
+        "title": "Sign Up",
+        "submit": "Sign Up",
+        "have_account": "Have an account?",
+        "snackbar_account_created": "Account created",
+        "snackbar_generic_error": "Something went wrong, please try again."
+      },
+      "banned": {
+        "title": "Account Suspended",
+        "subtitle": "Your account has been suspended until {{date}}.",
+        "description": "If you believe this is a mistake, please contact our support team.",
+        "logout": "Logout",
+        "unknown_period": "unknown period"
+      }
+    },
+    "admin-panel": {
+      "panel": {
+        "aria_tabs": "Admin panel tabs",
+        "tab_users": "User Management",
+        "tab_reviews": "Review Management"
+      },
+      "common": {
+        "aria_go_home": "Go to home",
+        "refreshing": "Refreshing...",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "edit": "Edit"
+      },
+      "roles": {
+        "user": "User",
+        "moderator": "Moderator",
+        "admin": "Admin"
+      },
+      "notify_types": {
+        "system": "System",
+        "friend_request": "Friend request",
+        "review": "Review"
+      },
+      "users": {
+        "refresh_users": "Refresh Users",
+        "table_aria": "Admin user table",
+        "columns": {
+          "username": "Username",
+          "email": "Email",
+          "role": "Role",
+          "status": "Status",
+          "actions": "Actions"
+        },
+        "status_active": "Active",
+        "status_banned_until": "Banned until {{date}}",
+        "actions": {
+          "role": "Role",
+          "ban": "Ban",
+          "notify": "Notify"
+        },
+        "dialog_role": {
+          "title": "Change Role for {{username}}",
+          "role_label": "Role",
+          "save": "Save Role"
+        },
+        "dialog_ban": {
+          "title": "Manage Ban for {{username}}",
+          "duration": "Duration:",
+          "day_1": "1 Day",
+          "day_7": "7 Days",
+          "day_30": "30 Days",
+          "permanent": "Permanent",
+          "lift": "Lift Ban",
+          "proposed_status": "Proposed Status:"
+        },
+        "dialog_notify": {
+          "title": "Notify {{username}}",
+          "field_title": "Title",
+          "field_message": "Message",
+          "field_type": "Type",
+          "send": "Send"
+        }
+      },
+      "reviews": {
+        "refresh_list": "Refresh List",
+        "table_aria": "Admin review management table",
+        "columns": {
+          "author": "Author",
+          "title": "Title",
+          "text_snippet": "Text (Snippet)",
+          "rating": "Rating",
+          "status": "Status",
+          "uploaded": "Uploaded",
+          "actions": "Actions"
+        },
+        "no_reviews": "No reviews found."
+      },
+      "review_status": {
+        "pending": "Pending",
+        "approved": "Approved",
+        "rejected": "Rejected",
+        "needs_correction": "Needs Correction"
+      },
+      "review_edit": {
+        "title": "Edit Review",
+        "fields": {
+          "review_title": "Review Title",
+          "review_text": "Review Text",
+          "rating": "Rating (1-10)",
+          "status": "Status"
+        },
+        "save_changes": "Save Changes"
+      }
+    },
+    "watchlist": {
+      "common": {
+        "na": "N/A",
+        "unknown": "Unknown",
+        "close": "Close",
+        "minutes_short": "{{count}} min",
+        "votes_one": "{{count}} vote",
+        "votes_other": "{{count}} votes"
+      },
+      "snackbar": {
+        "removed": "Movie removed",
+        "removed_from_watchlist": "Movie removed from watchlist",
+        "remove_failed_try_again": "Failed to remove movie. Please try again."
+      },
+      "detail_dialog": {
+        "movie_poster_alt": "Movie poster",
+        "no_description": "No description available.",
+        "directed_by": "Directed by",
+        "genre": "Genre",
+        "actors": "Actors",
+        "countries": "Countries",
+        "content_rating": "Content Rating",
+        "not_rated": "Not Rated"
+      },
+      "page_title": "Your Watchlist",
+      "login_hint": "To add movies to your watchlist, please log in.",
+      "empty": "Your watchlist is empty.",
+      "tooltip_more_info": "More info",
+      "tooltip_remove": "Remove",
+      "aria_remove": "remove"
+    },
+    "user-settings": {
+      "common": {
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving..."
+      },
+      "settings": {
+        "title": "Account Settings",
+        "back_home": "Back to Home",
+        "aria_tabs": "account settings tabs",
+        "tabs": {
+          "user_info": "User Info",
+          "change_password": "Change Password"
+        },
+        "user": {
+          "username_label": "Username",
+          "edit": "Edit Username",
+          "snackbar_updated": "Username updated successfully",
+          "snackbar_update_failed": "Failed to update username",
+          "snackbar_change_available_on": "You can change username on {{date}}"
+        },
+        "password": {
+          "old": "Old Password",
+          "new": "New Password",
+          "repeat": "Repeat Password",
+          "confirm": "Confirm"
+        }
+      }
+    },
+    "title-guesser": {
+      "page_title": "Guess the title (impossible)",
+      "streak_one": "Streak: {{count}}",
+      "streak_other": "Streak: {{count}}",
+      "hint": {
+        "title": "Hint:",
+        "top_cast": "Top cast: {{cast}}."
+      },
+      "api_blocked": "API returned 403 (access forbidden / rate limit). Fetching is paused.",
+      "revealed": {
+        "correct": "Correct!",
+        "incorrect": "Incorrect! The title was:"
+      },
+      "next_movie": "Next title",
+      "history": {
+        "title": "Game History",
+        "empty": "No games played yet."
+      },
+      "frames_load_failed": "Couldn't load frames. Skipping this title should have happened — try next.",
+      "frames_alt": "Guess the title",
+      "form": {
+        "label": "Enter title (RU/EN)",
+        "guess": "Guess",
+        "hint": "Hint"
+      }
+    },
+    "review-thread": {
+      "common": {
+        "cancel": "Cancel",
+        "loading": "Loading..."
+      },
+      "reviews": {
+        "page_title": "Reviews",
+        "section": {
+          "internal": "Reviews",
+          "external": "External Reviews"
+        },
+        "alert": {
+          "submitted": "Review submitted successfully!",
+          "updated": "Review updated successfully!"
+        },
+        "actions": {
+          "add": "Add a Review"
+        },
+        "tooltips": {
+          "pending": "Waiting for approval",
+          "edit": "Edit your review"
+        },
+        "buttons": {
+          "edit": "Edit",
+          "load_more": "Load More"
+        },
+        "empty": {
+          "internal": "No reviews yet."
+        },
+        "votes": {
+          "like": "Like",
+          "dislike": "Dislike"
+        },
+        "form": {
+          "title_label": "Review Title",
+          "text_label": "Your Review",
+          "rating_label": "Rating (1-10, optional)",
+          "submit": "Submit Review",
+          "update": "Update Review",
+          "submitting": "Submitting..."
+        },
+        "external": {
+          "loading": "Loading external reviews...",
+          "empty": "No external reviews found.",
+          "author": "Author",
+          "default_title": "Review",
+          "type": {
+            "positive": "Positive",
+            "neutral": "Neutral",
+            "negative": "Negative"
+          }
+        }
+      }
+    },
+    "page-not-found": {
+      "common": {
+        "home": "Home",
+        "back": "Back"
+      },
+      "title": "404 – Page not found",
+      "subtitle": "Sorry, we couldn’t find what you were looking for.",
+      "taking_you_back_in": "Taking you back in",
+      "seconds_one": "{{count}} second",
+      "seconds_other": "{{count}} seconds"
+    },
+    "random-title": {
+      "common": {
+        "any": "Any",
+        "na": "N/A",
+        "aria_go_home": "Go to home",
+        "minutes_short_one": "{{count}} min",
+        "minutes_short_other": "{{count}} min"
+      },
+      "page_title": "Title Randomizer",
+      "page_subtitle": "Discover your next favorite movie or show",
+      "filters": {
+        "content_type": "Content Type",
+        "genre": "Genre",
+        "any_genre": "Any Genre",
+        "year": "Year",
+        "min_rating": "Min Rating"
+      },
+      "actions": {
+        "roll": "ROLL",
+        "view_details": "View Details",
+        "clear_all": "Clear All"
+      },
+      "labels": {
+        "your_rating": "Your Rating:"
+      },
+      "history": {
+        "title": "Recent Rolls"
+      },
+      "empty": {
+        "loading": "Finding something great for you...",
+        "title": "Ready to discover something new?",
+        "subtitle": "Set your filters and click ROLL to get a random recommendation"
+      },
+      "movie": {
+        "poster_alt": "Poster",
+        "no_title": "No Title",
+        "no_description": "No description available."
+      },
+      "ratings": {
+        "kp": "KP: {{value}}",
+        "imdb": "IMDb: {{value}}"
+      },
+      "content_types": {
+        "movie": "Movie",
+        "tv-series": "TV Series",
+        "cartoon": "Cartoon",
+        "anime": "Anime"
+      },
+      "genres": {
+        "thriller": "Thriller",
+        "drama": "Drama",
+        "crime": "Crime",
+        "romance": "Romance",
+        "detective": "Detective",
+        "sci_fi": "Sci-Fi",
+        "comedy": "Comedy",
+        "action": "Action",
+        "western": "Western",
+        "fantasy": "Fantasy",
+        "music": "Music"
+      }
+    },
+    "media-details": {
+      "load_error": "Failed to load content",
+      "no_title": "Untitled",
+      "no_description": "No description available.",
+      "runtime_hm": "{{hours}}h {{minutes}}m",
+      "runtime_m": "{{minutes}}m",
+      "kp_votes": "{{formatted}} ratings",
+      "professions": {
+        "director": "Director",
+        "writer": "Writer",
+        "producer": "Producer"
+      },
+      "components": {
+        "gallery": {
+          "close": "Close",
+          "prev": "Previous image",
+          "next": "Next image",
+          "thumb_alt": "{{title}} gallery image {{index}}",
+          "full_alt": "{{title}} image {{index}}"
+        }
+      },
+      "genres": {
+        "action": "Action",
+        "adventure": "Adventure",
+        "animation": "Animation",
+        "anime": "Anime",
+        "biography": "Biography",
+        "comedy": "Comedy",
+        "crime": "Crime",
+        "detective": "Detective",
+        "documentary": "Documentary",
+        "drama": "Drama",
+        "family": "Family",
+        "fantasy": "Fantasy",
+        "history": "History",
+        "horror": "Horror",
+        "music": "Music",
+        "musical": "Musical",
+        "mystery": "Mystery",
+        "romance": "Romance",
+        "sci_fi": "Sci-Fi",
+        "short": "Short",
+        "sport": "Sport",
+        "thriller": "Thriller",
+        "war": "War",
+        "western": "Western",
+        "kids": "Kids",
+        "reality": "Reality TV",
+        "talk_show": "Talk-show",
+        "game_show": "Game-show",
+        "news": "News"
+      },
+      "labels": {
+        "countries": "Countries:",
+        "release_date": "Release date:",
+        "budget": "Budget:",
+        "seasons": "Seasons:"
+      },
+      "seasons_episodes": {
+        "season": "{{count}} season",
+        "season_other": "{{count}} seasons",
+        "episode": "{{count}} episode",
+        "episode_other": "{{count}} episodes"
+      },
+      "actions": {
+        "trailer": "Trailer"
+      },
+      "sections": {
+        "crew": "Crew",
+        "cast": "Cast",
+        "similar": "Similar titles",
+        "gallery": "Gallery",
+        "facts": "Facts"
+      },
+      "facts": {
+        "ru_only_note": "Facts are available only in Russian.",
+        "show_ru_only": "Show facts (only RU)",
+        "hide": "Hide facts",
+        "show_more": "Show more",
+        "spoiler": "Spoiler"
+      },
+      "discussion": {
+        "title": "Join the discussion",
+        "subtitle": "Share your thoughts and discuss with other viewers",
+        "button": "View discussions"
+      }
+    },
+    "home": {
+      "recentlyViewed": "Recently Viewed",
+      "history": "History",
+      "cta": {
+        "title": "Ready to start watching?",
+        "subtitle": "Create an account today and get unlimited access to thousands of movies and TV shows.",
+        "joinNow": "Join now — it’s free"
+      },
+      "recentViewed": {
+        "clearAll": "Clear All",
+        "empty": {
+          "title": "No Watch History",
+          "subtitle": "Start watching to build your history"
+        },
+        "aria": {
+          "clearAll": "Clear watch history",
+          "openTitle": "Open {{title}}"
+        }
+      },
+      "best50": "Top 50 Movies",
+      "popularNow": {
+        "moreInfo": "More Info"
+      }
+    },
+    "user-profile": {
+      "profile": {
+        "id": "ID:",
+        "loadError": "Failed to load profile data.",
+        "tabs": {
+          "aria": "Profile tabs",
+          "ratings": "Ratings",
+          "watchlist": "Watchlist",
+          "reviews": "Reviews",
+          "friends": "Friends",
+          "settings": "Settings"
+        },
+        "header": {
+          "title": "My Profile",
+          "stats": {
+            "friends": "Friends",
+            "ratings": "Ratings",
+            "watchlist": "Watchlist",
+            "reviews": "Reviews"
+          }
+        },
+        "empty": {
+          "ratings": "No ratings yet",
+          "watchlist": "Your watchlist is empty",
+          "reviews": "No reviews written yet"
+        }
+      },
+      "publicProfile": {
+        "role": {
+          "user": "User"
+        },
+        "private": {
+          "title": "Profile Private",
+          "description": "This profile is set to private. Only friends can view this user's activity and lists.",
+          "backHome": "Return to Home",
+          "contentHiddenTitle": "Content Hidden",
+          "contentHiddenDescription": "This user has changed their privacy settings."
+        }
+      },
+      "review": {
+        "edited": "Edited",
+        "like": "Like",
+        "dislike": "Dislike",
+        "status": {
+          "approved": "Approved",
+          "pending": "Pending",
+          "rejected": "Rejected",
+          "needs_correction": "Needs correction"
+        }
+      },
+      "friends": {
+        "incomingRequests": "Incoming Requests",
+        "sentRequests": "Sent Requests",
+        "yourFriendsWithCount": "Your Friends ({{count}})",
+        "empty": "You haven't added any friends yet.",
+        "actions": {
+          "accept": "Accept",
+          "decline": "Decline",
+          "remove": "Remove",
+          "removing": "Removing...",
+          "cancel": "Cancel",
+          "canceling": "Canceling..."
+        },
+        "sent": {
+          "waiting": "Waiting for approval..."
+        },
+        "actionButton": {
+          "addFriend": "Add Friend",
+          "sending": "Sending...",
+          "removeFriend": "Remove Friend",
+          "removing": "Removing...",
+          "cancelRequest": "Cancel Request",
+          "canceling": "Canceling...",
+          "accept": "Accept",
+          "accepting": "Accepting...",
+          "decline": "Decline",
+          "declining": "Declining..."
+        }
+      },
+      "settings": {
+        "privacy": {
+          "title": "Profile Privacy",
+          "label": "Who can see your profile activity?",
+          "public": "Everyone",
+          "friends": "Friends only",
+          "private": "Only me",
+          "save": "Save",
+          "saving": "Saving...",
+          "saved": "Privacy setting saved successfully!",
+          "saveFailed": "Failed to save setting. Please try again."
+        }
+      }
+    },
+    "moderator-panel": {
+      "title": "Moderator Panel",
+      "subtitle": "Manage users and moderate reviews.",
+      "tabs": {
+        "aria": "Moderator panel tabs",
+        "users": "User Management",
+        "reviews": "Review Management"
+      },
+      "dialog": {
+        "userId": "User ID: {{id}}",
+        "title": {
+          "approve": "Approve Review",
+          "reject": "Reject Review",
+          "needsCorrection": "Request Correction",
+          "default": "Moderate Review"
+        },
+        "prompt": {
+          "approve": "Are you sure you want to approve this review by {{author}}?",
+          "reject": "Are you sure you want to reject this review by {{author}}? Please provide a reason.",
+          "needsCorrection": "Please provide comments for {{author}} on why this review needs correction."
+        },
+        "reviewTitleLabel": "Review Title",
+        "comments": {
+          "label": "Moderator Comments",
+          "requiredHelper": "Comments are required for this action."
+        },
+        "buttons": {
+          "cancel": "Cancel",
+          "confirm": "Confirm"
+        },
+        "error": {
+          "prefix": "Error:",
+          "unknown": "An unknown error occurred during moderation."
+        }
+      },
+      "usersTable": {
+        "backHomeAria": "Go to home",
+        "refresh": "Refresh Users",
+        "refreshing": "Refreshing...",
+        "empty": "No users found.",
+        "tableAria": "User list table",
+        "columns": {
+          "id": "ID",
+          "username": "Username",
+          "email": "Email",
+          "role": "Role"
+        },
+        "errors": {
+          "unknown": "An unknown error occurred"
+        },
+        "roles": {
+          "user": "User",
+          "moderator": "Moderator",
+          "admin": "Admin"
+        }
+      },
+      "reviewsTable": {
+        "na": "N/A",
+        "authorFallback": "Unknown",
+        "backHomeAria": "Go to home",
+        "filter": {
+          "label": "Filter by Status",
+          "all": "All"
+        },
+        "quickDelete": "Quick Delete",
+        "refresh": "Refresh Reviews",
+        "refreshing": "Refreshing...",
+        "empty": "No reviews found for the selected status.",
+        "tableAria": "Review management table",
+        "columns": {
+          "movieId": "Movie ID",
+          "author": "Author",
+          "title": "Title",
+          "textSnippet": "Text (snippet)",
+          "rating": "Rating",
+          "status": "Status",
+          "uploaded": "Uploaded",
+          "actions": "Actions"
+        },
+        "card": {
+          "author": "Author"
+        },
+        "tooltips": {
+          "awaitingCorrection": "Waiting for user to resubmit. No actions can be taken."
+        },
+        "actions": {
+          "aria": "Moderation actions",
+          "approve": "Approve",
+          "reject": "Reject",
+          "needsCorrection": "Needs correction",
+          "delete": "Delete",
+          "correct": "Correct",
+          "deleteAria": "Delete review"
+        },
+        "deleteDialog": {
+          "title": "Confirm Deletion",
+          "description": "Are you sure you want to delete this review?",
+          "cancel": "Cancel",
+          "confirm": "Delete"
+        },
+        "snackbar": {
+          "removed": "Review removed",
+          "removeFailed": "Failed to remove review"
+        },
+        "errors": {
+          "unknown": "An unknown error occurred"
+        }
+      }
+    }
+  },
+  "widgets": {
+    "footer": {
+      "copyright": "All rights reserved.",
+      "appearance": "Appearance:"
+    },
+    "navbar": {
+      "home": "Home",
+      "watchlist": "Watchlist",
+      "admin": "Admin",
+      "moderator": "Moderator",
+      "signIn": "Sign in",
+      "menu": "Menu",
+      "notSignedIn": "Not signed in",
+      "loggedInAs": "Logged in as {{username}}",
+      "settings": "Settings",
+      "userProfile": "User Profile",
+      "randomTitle": "Random Title",
+      "titleGuesser": "Title Guesser",
+      "logout": "Logout",
+      "aria": {
+        "primaryNavigation": "Primary navigation",
+        "home": "Home",
+        "openMenu": "Open menu",
+        "userMenu": "User menu"
+      },
+      "notifications": {
+        "title": "Notifications",
+        "empty": "You're all caught up!",
+        "actions": {
+          "deleteAllShown": "Delete all shown"
+        },
+        "aria": {
+          "showNew_one": "Show notifications ({{count}} unread)",
+          "showNew_other": "Show notifications ({{count}} unread)",
+          "deleteAllShown": "Delete all shown notifications",
+          "deleteNotification": "Delete notification"
+        }
+      }
+    }
+  }
+}

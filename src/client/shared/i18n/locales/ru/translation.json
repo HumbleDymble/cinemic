@@ -1,0 +1,749 @@
+{
+  "features": {
+    "add-to-watchlist": {
+      "tooltip_guest": "Войдите, чтобы использовать список",
+      "button_action": "Буду смотреть"
+    },
+    "user-rating": {
+      "unknown_title": "Неизвестное название",
+      "button_rate": "Оценить",
+      "tooltip_login": "Войдите, чтобы оценить",
+      "tooltip_rated": "Ваша оценка: {{rating}}/10. Нажмите, чтобы изменить.",
+      "tooltip_rate": "Нажмите, чтобы оценить",
+      "dialog": {
+        "title": "Оценить «{{title}}»",
+        "cancel": "Отмена",
+        "submit": "Сохранить",
+        "remove_aria": "Удалить оценку"
+      }
+    },
+    "theme-switcher": {
+      "switch_to_dark": "Переключить на тёмную тему",
+      "switch_to_light": "Переключить на светлую тему"
+    },
+    "search": {
+      "placeholder": "Поиск фильмов и сериалов…",
+      "aria_input": "Поиск фильмов и сериалов",
+      "aria_clear": "Очистить поиск",
+      "fetch_error": "Ошибка загрузки",
+      "clear": "Очистить",
+      "searching_for": "Ищем «{{search}}»…",
+      "cancel_search": "Отменить поиск",
+      "clear_search": "Очистить поиск",
+      "found_results_one": "Найден {{count}} результат по запросу",
+      "found_results_few": "Найдено {{count}} результата по запросу",
+      "found_results_many": "Найдено {{count}} результатов по запросу",
+      "query": "«{{search}}»",
+      "untitled": "Без названия",
+      "original": "Оригинальное название"
+    }
+  },
+  "pages": {
+    "auth": {
+      "common": {
+        "aria_go_home": "На главную",
+        "home": "Главная",
+        "email_label": "Электронная почта",
+        "password_label": "Пароль",
+        "username_label": "Имя пользователя"
+      },
+      "signin": {
+        "title": "Вход",
+        "submit": "Войти",
+        "forgot_password": "Забыли пароль?",
+        "no_account": "Нет аккаунта?",
+        "snackbar_invalid_credentials": "Неверный пароль или пользователь не найден"
+      },
+      "signup": {
+        "title": "Регистрация",
+        "submit": "Зарегистрироваться",
+        "have_account": "Уже есть аккаунт?",
+        "snackbar_account_created": "Аккаунт создан",
+        "snackbar_generic_error": "Что-то пошло не так. Попробуйте ещё раз."
+      },
+      "banned": {
+        "title": "Аккаунт заблокирован",
+        "subtitle": "Ваш аккаунт заблокирован до {{date}}.",
+        "description": "Если вы считаете, что это ошибка, пожалуйста, свяжитесь с поддержкой.",
+        "logout": "Выйти",
+        "unknown_period": "неизвестного времени"
+      }
+    },
+    "admin-panel": {
+      "panel": {
+        "aria_tabs": "Вкладки панели администратора",
+        "tab_users": "Пользователи",
+        "tab_reviews": "Отзывы"
+      },
+      "common": {
+        "aria_go_home": "На главную",
+        "refreshing": "Обновление...",
+        "cancel": "Отмена",
+        "confirm": "Подтвердить",
+        "edit": "Редактировать"
+      },
+      "roles": {
+        "user": "Пользователь",
+        "moderator": "Модератор",
+        "admin": "Администратор"
+      },
+      "notify_types": {
+        "system": "Системное",
+        "friend_request": "Запрос в друзья",
+        "review": "Отзыв"
+      },
+      "users": {
+        "refresh_users": "Обновить пользователей",
+        "table_aria": "Таблица пользователей (админ)",
+        "columns": {
+          "username": "Имя пользователя",
+          "email": "Почта",
+          "role": "Роль",
+          "status": "Статус",
+          "actions": "Действия"
+        },
+        "status_active": "Активен",
+        "status_banned_until": "Заблокирован до {{date}}",
+        "actions": {
+          "role": "Роль",
+          "ban": "Бан",
+          "notify": "Уведомить"
+        },
+        "dialog_role": {
+          "title": "Сменить роль для {{username}}",
+          "role_label": "Роль",
+          "save": "Сохранить роль"
+        },
+        "dialog_ban": {
+          "title": "Управление баном: {{username}}",
+          "duration": "Длительность:",
+          "day_1": "1 день",
+          "day_7": "7 дней",
+          "day_30": "30 дней",
+          "permanent": "Навсегда",
+          "lift": "Снять бан",
+          "proposed_status": "Предлагаемый статус:"
+        },
+        "dialog_notify": {
+          "title": "Уведомить {{username}}",
+          "field_title": "Заголовок",
+          "field_message": "Сообщение",
+          "field_type": "Тип",
+          "send": "Отправить"
+        }
+      },
+      "reviews": {
+        "refresh_list": "Обновить список",
+        "table_aria": "Таблица отзывов (админ)",
+        "columns": {
+          "author": "Автор",
+          "title": "Заголовок",
+          "text_snippet": "Текст (фрагмент)",
+          "rating": "Оценка",
+          "status": "Статус",
+          "uploaded": "Дата",
+          "actions": "Действия"
+        },
+        "no_reviews": "Отзывы не найдены."
+      },
+      "review_status": {
+        "pending": "На проверке",
+        "approved": "Одобрено",
+        "rejected": "Отклонено",
+        "needs_correction": "Нужны правки"
+      },
+      "review_edit": {
+        "title": "Редактировать отзыв",
+        "fields": {
+          "review_title": "Заголовок отзыва",
+          "review_text": "Текст отзыва",
+          "rating": "Оценка (1–10)",
+          "status": "Статус"
+        },
+        "save_changes": "Сохранить изменения"
+      }
+    },
+    "watchlist": {
+      "common": {
+        "na": "Н/Д",
+        "unknown": "Неизвестно",
+        "close": "Закрыть",
+        "minutes_short_one": "{{count}} мин",
+        "minutes_short_few": "{{count}} мин",
+        "minutes_short_many": "{{count}} мин",
+        "minutes_short_other": "{{count}} мин",
+        "votes_one": "{{count}} голос",
+        "votes_few": "{{count}} голоса",
+        "votes_many": "{{count}} голосов",
+        "votes_other": "{{count}} голоса"
+      },
+      "snackbar": {
+        "removed": "Фильм удалён",
+        "removed_from_watchlist": "Фильм удалён из списка",
+        "remove_failed_try_again": "Не удалось удалить фильм. Попробуйте ещё раз."
+      },
+      "detail_dialog": {
+        "movie_poster_alt": "Постер фильма",
+        "no_description": "Описание отсутствует.",
+        "directed_by": "Режиссёр",
+        "genre": "Жанр",
+        "actors": "Актёры",
+        "countries": "Страны",
+        "content_rating": "Возрастной рейтинг",
+        "not_rated": "Без рейтинга"
+      },
+      "page_title": "Ваш список",
+      "login_hint": "Чтобы добавлять фильмы в список, пожалуйста, войдите в аккаунт.",
+      "empty": "Ваш список пуст.",
+      "tooltip_more_info": "Подробнее",
+      "tooltip_remove": "Удалить",
+      "aria_remove": "удалить"
+    },
+    "user-settings": {
+      "common": {
+        "cancel": "Отмена",
+        "save": "Сохранить",
+        "saving": "Сохранение..."
+      },
+      "settings": {
+        "title": "Настройки аккаунта",
+        "back_home": "На главную",
+        "aria_tabs": "вкладки настроек аккаунта",
+        "tabs": {
+          "user_info": "Профиль",
+          "change_password": "Сменить пароль"
+        },
+        "user": {
+          "username_label": "Имя пользователя",
+          "edit": "Изменить имя",
+          "snackbar_updated": "Имя пользователя обновлено",
+          "snackbar_update_failed": "Не удалось обновить имя пользователя",
+          "snackbar_change_available_on": "Сменить имя можно {{date}}"
+        },
+        "password": {
+          "old": "Старый пароль",
+          "new": "Новый пароль",
+          "repeat": "Повторите пароль",
+          "confirm": "Подтвердить"
+        }
+      }
+    },
+    "title-guesser": {
+      "page_title": "Угадай название (невозможно)",
+      "streak_one": "Серия: {{count}}",
+      "streak_few": "Серия: {{count}}",
+      "streak_many": "Серия: {{count}}",
+      "streak_other": "Серия: {{count}}",
+      "hint": {
+        "title": "Подсказка:",
+        "top_cast": "В ролях: {{cast}}."
+      },
+      "api_blocked": "API вернул 403 (доступ запрещён / лимит запросов). Загрузка приостановлена.",
+      "revealed": {
+        "correct": "Верно!",
+        "incorrect": "Неверно! Это был:"
+      },
+      "next_movie": "Следующий",
+      "history": {
+        "title": "История игр",
+        "empty": "Пока сыгранных игр нет."
+      },
+      "frames_load_failed": "Не удалось загрузить кадры. Должно было произойти переключение — попробуйте следующий.",
+      "frames_alt": "Угадай название",
+      "form": {
+        "label": "Введите название (RU/EN)",
+        "guess": "Угадать",
+        "hint": "Подсказка"
+      }
+    },
+    "review-thread": {
+      "common": {
+        "cancel": "Отмена",
+        "loading": "Загрузка..."
+      },
+      "reviews": {
+        "page_title": "Отзывы",
+        "section": {
+          "internal": "Отзывы",
+          "external": "Внешние отзывы"
+        },
+        "alert": {
+          "submitted": "Отзыв успешно отправлен!",
+          "updated": "Отзыв успешно обновлён!"
+        },
+        "actions": {
+          "add": "Добавить отзыв"
+        },
+        "tooltips": {
+          "pending": "Ожидает модерации",
+          "edit": "Редактировать отзыв"
+        },
+        "buttons": {
+          "edit": "Редактировать",
+          "load_more": "Показать ещё"
+        },
+        "empty": {
+          "internal": "Пока нет отзывов."
+        },
+        "votes": {
+          "like": "Лайк",
+          "dislike": "Дизлайк"
+        },
+        "form": {
+          "title_label": "Заголовок отзыва",
+          "text_label": "Ваш отзыв",
+          "rating_label": "Оценка (1–10, необязательно)",
+          "submit": "Отправить отзыв",
+          "update": "Обновить отзыв",
+          "submitting": "Отправка..."
+        },
+        "external": {
+          "loading": "Загрузка внешних отзывов...",
+          "empty": "Внешние отзывы не найдены.",
+          "author": "Автор",
+          "default_title": "Отзыв",
+          "type": {
+            "positive": "Позитивный",
+            "neutral": "Нейтральный",
+            "negative": "Негативный"
+          }
+        }
+      }
+    },
+    "page-not-found": {
+      "common": {
+        "home": "Главная",
+        "back": "Назад"
+      },
+      "title": "404 — Страница не найдена",
+      "subtitle": "Извините, мы не смогли найти то, что вы искали.",
+      "taking_you_back_in": "Возвращаем назад через",
+      "seconds_one": "{{count}} секунду",
+      "seconds_few": "{{count}} секунды",
+      "seconds_many": "{{count}} секунд",
+      "seconds_other": "{{count}} секунды"
+    },
+    "random-title": {
+      "common": {
+        "any": "Любой",
+        "na": "Н/Д",
+        "aria_go_home": "На главную",
+        "minutes_short_one": "{{count}} мин",
+        "minutes_short_few": "{{count}} мин",
+        "minutes_short_many": "{{count}} мин",
+        "minutes_short_other": "{{count}} мин"
+      },
+      "page_title": "Случайный выбор",
+      "page_subtitle": "Найдите следующий фильм или сериал для просмотра",
+      "filters": {
+        "content_type": "Тип",
+        "genre": "Жанр",
+        "any_genre": "Любой жанр",
+        "year": "Год",
+        "min_rating": "Мин. рейтинг"
+      },
+      "actions": {
+        "roll": "СЛУЧАЙНО",
+        "view_details": "Подробнее",
+        "clear_all": "Очистить всё"
+      },
+      "labels": {
+        "your_rating": "Ваша оценка:"
+      },
+      "history": {
+        "title": "Недавние попытки"
+      },
+      "empty": {
+        "loading": "Ищем что-нибудь классное для вас...",
+        "title": "Готовы открыть что-то новое?",
+        "subtitle": "Выберите фильтры и нажмите СЛУЧАЙНО, чтобы получить рекомендацию"
+      },
+      "movie": {
+        "poster_alt": "Постер",
+        "no_title": "Без названия",
+        "no_description": "Описание отсутствует."
+      },
+      "ratings": {
+        "kp": "КП: {{value}}",
+        "imdb": "IMDb: {{value}}"
+      },
+      "content_types": {
+        "movie": "Фильм",
+        "tv-series": "Сериал",
+        "cartoon": "Мультфильм",
+        "anime": "Аниме"
+      },
+      "genres": {
+        "thriller": "Триллер",
+        "drama": "Драма",
+        "crime": "Криминал",
+        "romance": "Мелодрама",
+        "detective": "Детектив",
+        "sci_fi": "Фантастика",
+        "comedy": "Комедия",
+        "action": "Боевик",
+        "western": "Вестерн",
+        "fantasy": "Фэнтези",
+        "music": "Музыка"
+      }
+    },
+    "media-details": {
+      "load_error": "Не удалось загрузить контент",
+      "no_title": "Без названия",
+      "no_description": "Описание отсутствует.",
+      "runtime_hm": "{{hours}}ч {{minutes}}м",
+      "runtime_m": "{{minutes}}м",
+      "kp_votes": "{{formatted}} оценок",
+      "professions": {
+        "director": "Режиссёр",
+        "writer": "Сценарист",
+        "producer": "Продюсер"
+      },
+      "components": {
+        "gallery": {
+          "close": "Закрыть",
+          "prev": "Предыдущее изображение",
+          "next": "Следующее изображение",
+          "thumb_alt": "{{title}} — галерея, изображение {{index}}",
+          "full_alt": "{{title}} — изображение {{index}}"
+        }
+      },
+      "genres": {
+        "action": "Боевик",
+        "adventure": "Приключения",
+        "animation": "Мультфильм",
+        "anime": "Аниме",
+        "biography": "Биография",
+        "comedy": "Комедия",
+        "crime": "Криминал",
+        "detective": "Детектив",
+        "documentary": "Документальный",
+        "drama": "Драма",
+        "family": "Семейный",
+        "fantasy": "Фэнтези",
+        "history": "История",
+        "horror": "Ужасы",
+        "music": "Музыка",
+        "musical": "Мюзикл",
+        "mystery": "Мистика",
+        "romance": "Мелодрама",
+        "sci_fi": "Фантастика",
+        "short": "Короткометражка",
+        "sport": "Спорт",
+        "thriller": "Триллер",
+        "war": "Военный",
+        "western": "Вестерн",
+        "kids": "Детский",
+        "reality": "Реальное ТВ",
+        "talk_show": "Ток-шоу",
+        "game_show": "Игра",
+        "news": "Новости"
+      },
+      "labels": {
+        "countries": "Страны:",
+        "release_date": "Дата выхода:",
+        "budget": "Бюджет:",
+        "seasons": "Сезонов:"
+      },
+      "seasons_episodes": {
+        "season_one": "{{count}} сезон",
+        "season_few": "{{count}} сезона",
+        "season_many": "{{count}} сезонов",
+        "season_other": "{{count}} сезона",
+        "episode_one": "{{count}} эпизод",
+        "episode_few": "{{count}} эпизода",
+        "episode_many": "{{count}} эпизодов",
+        "episode_other": "{{count}} эпизода"
+      },
+      "actions": {
+        "trailer": "Трейлер"
+      },
+      "sections": {
+        "crew": "Съёмочная группа",
+        "cast": "В ролях",
+        "similar": "Похожие фильмы",
+        "gallery": "Галерея",
+        "facts": "Факты"
+      },
+      "facts": {
+        "ru_only_note": "Факты доступны только на русском языке.",
+        "show_ru_only": "Показать факты (только RU)",
+        "hide": "Скрыть факты",
+        "show_more": "Показать ещё",
+        "spoiler": "Спойлер"
+      },
+      "discussion": {
+        "title": "Присоединяйтесь к обсуждению",
+        "subtitle": "Поделитесь своими мыслями и обсудите с другими зрителями",
+        "button": "Смотреть обсуждения"
+      }
+    },
+    "home": {
+      "recentlyViewed": "Недавно просмотренные",
+      "history": "История",
+      "cta": {
+        "title": "Готовы начать смотреть?",
+        "subtitle": "Создайте аккаунт сегодня и получите неограниченный доступ к тысячам фильмов и сериалов.",
+        "joinNow": "Присоединиться — бесплатно"
+      },
+      "recentViewed": {
+        "clearAll": "Очистить",
+        "empty": {
+          "title": "История пуста",
+          "subtitle": "Начните смотреть, чтобы появилась история"
+        },
+        "aria": {
+          "clearAll": "Очистить историю просмотров",
+          "openTitle": "Открыть: {{title}}"
+        }
+      },
+      "best50": "50 лучших фильмов",
+      "popularNow": {
+        "moreInfo": "Подробнее"
+      }
+    },
+    "user-profile": {
+      "profile": {
+        "id": "Идентификатор:",
+        "loadError": "Не удалось загрузить данные профиля.",
+        "tabs": {
+          "aria": "Вкладки профиля",
+          "ratings": "Оценки",
+          "watchlist": "Буду смотреть",
+          "reviews": "Отзывы",
+          "friends": "Друзья",
+          "settings": "Настройки"
+        },
+        "header": {
+          "title": "Мой профиль",
+          "stats": {
+            "friends": "Друзья",
+            "ratings": "Оценки",
+            "watchlist": "Буду смотреть",
+            "reviews": "Отзывы"
+          }
+        },
+        "empty": {
+          "ratings": "Оценок пока нет",
+          "watchlist": "Буду смотреть (пусто)",
+          "reviews": "Отзывов пока нет"
+        }
+      },
+      "publicProfile": {
+        "role": {
+          "user": "Пользователь"
+        },
+        "private": {
+          "title": "Профиль закрыт",
+          "description": "Этот профиль приватный. Только друзья могут видеть активность и списки пользователя.",
+          "backHome": "На главную",
+          "contentHiddenTitle": "Контент скрыт",
+          "contentHiddenDescription": "Пользователь изменил настройки приватности."
+        }
+      },
+      "review": {
+        "edited": "Отредактировано",
+        "like": "Нравится",
+        "dislike": "Не нравится",
+        "status": {
+          "approved": "Одобрено",
+          "pending": "На проверке",
+          "rejected": "Отклонено",
+          "needs_correction": "Требует правок"
+        }
+      },
+      "friends": {
+        "incomingRequests": "Входящие заявки",
+        "sentRequests": "Отправленные заявки",
+        "yourFriendsWithCount": "Друзья ({{count}})",
+        "empty": "Вы пока не добавили друзей.",
+        "actions": {
+          "accept": "Принять",
+          "decline": "Отклонить",
+          "remove": "Удалить",
+          "removing": "Удаление...",
+          "cancel": "Отменить",
+          "canceling": "Отмена..."
+        },
+        "sent": {
+          "waiting": "Ожидает подтверждения..."
+        },
+        "actionButton": {
+          "addFriend": "Добавить в друзья",
+          "sending": "Отправка...",
+          "removeFriend": "Удалить из друзей",
+          "removing": "Удаление...",
+          "cancelRequest": "Отменить заявку",
+          "canceling": "Отмена...",
+          "accept": "Принять",
+          "accepting": "Принятие...",
+          "decline": "Отклонить",
+          "declining": "Отклонение..."
+        }
+      },
+      "settings": {
+        "privacy": {
+          "title": "Приватность профиля",
+          "label": "Кто может видеть активность вашего профиля?",
+          "public": "Все",
+          "friends": "Только друзья",
+          "private": "Только я",
+          "save": "Сохранить",
+          "saving": "Сохранение...",
+          "saved": "Настройка приватности успешно сохранена!",
+          "saveFailed": "Не удалось сохранить. Попробуйте ещё раз."
+        }
+      }
+    },
+    "moderator-panel": {
+      "title": "Панель модератора",
+      "subtitle": "Управляйте пользователями и модерируйте отзывы.",
+      "tabs": {
+        "aria": "Вкладки панели модератора",
+        "users": "Пользователи",
+        "reviews": "Отзывы"
+      },
+      "dialog": {
+        "userId": "ID пользователя: {{id}}",
+        "title": {
+          "approve": "Одобрить отзыв",
+          "reject": "Отклонить отзыв",
+          "needsCorrection": "Запросить правки",
+          "default": "Модерация отзыва"
+        },
+        "prompt": {
+          "approve": "Вы уверены, что хотите одобрить отзыв пользователя {{author}}?",
+          "reject": "Вы уверены, что хотите отклонить отзыв пользователя {{author}}? Укажите причину.",
+          "needsCorrection": "Оставьте комментарии для пользователя {{author}}, почему отзыв требует правок."
+        },
+        "reviewTitleLabel": "Заголовок отзыва",
+        "comments": {
+          "label": "Комментарий модератора",
+          "requiredHelper": "Для этого действия требуется комментарий."
+        },
+        "buttons": {
+          "cancel": "Отмена",
+          "confirm": "Подтвердить"
+        },
+        "error": {
+          "prefix": "Ошибка:",
+          "unknown": "Произошла неизвестная ошибка при модерации."
+        }
+      },
+      "usersTable": {
+        "backHomeAria": "На главную",
+        "refresh": "Обновить список",
+        "refreshing": "Обновление...",
+        "empty": "Пользователи не найдены.",
+        "tableAria": "Таблица пользователей",
+        "columns": {
+          "id": "Идентификатор",
+          "username": "Имя пользователя",
+          "email": "Почта",
+          "role": "Роль"
+        },
+        "errors": {
+          "unknown": "Произошла неизвестная ошибка"
+        },
+        "roles": {
+          "user": "Пользователь",
+          "moderator": "Модератор",
+          "admin": "Администратор"
+        }
+      },
+      "reviewsTable": {
+        "na": "Недоступно",
+        "authorFallback": "Неизвестно",
+        "backHomeAria": "На главную",
+        "filter": {
+          "label": "Фильтр по статусу",
+          "all": "Все"
+        },
+        "quickDelete": "Быстрое удаление",
+        "refresh": "Обновить отзывы",
+        "refreshing": "Обновление...",
+        "empty": "Для выбранного статуса отзывы не найдены.",
+        "tableAria": "Таблица модерации отзывов",
+        "columns": {
+          "movieId": "Идентификатор фильма",
+          "author": "Автор",
+          "title": "Заголовок",
+          "textSnippet": "Текст (фрагмент)",
+          "rating": "Оценка",
+          "status": "Статус",
+          "uploaded": "Загружено",
+          "actions": "Действия"
+        },
+        "card": {
+          "author": "Автор"
+        },
+        "tooltips": {
+          "awaitingCorrection": "Ожидание повторной отправки от пользователя. Действия недоступны."
+        },
+        "actions": {
+          "approve": "Одобрить",
+          "reject": "Отклонить",
+          "needsCorrection": "Нужны правки",
+          "delete": "Удалить",
+          "correct": "Исправить",
+          "deleteAria": "Удалить отзыв"
+        },
+        "deleteDialog": {
+          "title": "Подтвердите удаление",
+          "description": "Вы уверены, что хотите удалить этот отзыв?",
+          "cancel": "Отмена",
+          "confirm": "Удалить"
+        },
+        "snackbar": {
+          "removed": "Отзыв удалён",
+          "removeFailed": "Не удалось удалить отзыв"
+        },
+        "errors": {
+          "unknown": "Произошла неизвестная ошибка"
+        }
+      }
+    }
+  },
+  "widgets": {
+    "footer": {
+      "copyright": "Все права защищены.",
+      "appearance": "Тема:"
+    },
+    "navbar": {
+      "home": "Главная",
+      "watchlist": "Буду смотреть",
+      "admin": "Админ",
+      "moderator": "Модератор",
+      "signIn": "Войти",
+      "menu": "Меню",
+      "notSignedIn": "Вы не вошли",
+      "loggedInAs": "Вы вошли как {{username}}",
+      "settings": "Настройки",
+      "userProfile": "Профиль",
+      "randomTitle": "Что посмотреть? (Рандом)",
+      "titleGuesser": "Угадай название фильма (невозможно \uD83D\uDC80)",
+      "logout": "Выйти",
+      "aria": {
+        "primaryNavigation": "Основная навигация",
+        "home": "Главная",
+        "openMenu": "Открыть меню",
+        "userMenu": "Меню пользователя"
+      },
+      "notifications": {
+        "title": "Уведомления",
+        "empty": "Новых уведомлений нет!",
+        "actions": {
+          "deleteAllShown": "Удалить все показанные"
+        },
+        "aria": {
+          "showNew_one": "Показать уведомления ({{count}} непрочитанное)",
+          "showNew_few": "Показать уведомления ({{count}} непрочитанных)",
+          "showNew_many": "Показать уведомления ({{count}} непрочитанных)",
+          "showNew_other": "Показать уведомления ({{count}} непрочитанных)",
+          "deleteAllShown": "Удалить все показанные уведомления",
+          "deleteNotification": "Удалить уведомление"
+        }
+      }
+    }
+  }
+}

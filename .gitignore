@@ -1,0 +1,16 @@
+# Environment files
+.env.keys
+
+# WebStorm
+**.idea
+
+# HTML
+**/*.html
+
+# Webpack
+build
+
+# Dependency directories
+node_modules
+
+certificates
