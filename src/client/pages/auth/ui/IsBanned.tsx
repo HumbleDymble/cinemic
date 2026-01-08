@@ -19,24 +19,26 @@ export function IsBanned() {
   const { data, isLoading } = useHandleAuthorizationQuery();
   const [signOut] = useSignOutMutation();
 
-  const user = data?.user;
+  const isAuthed = data?.user?._id;
+  const isBanned = data?.user?.isBanned;
 
   useEffect(() => {
-    if (!user) return;
-    if (!user.isBanned) router.replace("/");
-  }, [user, router]);
+    if (!isAuthed) {
+      router.replace("/");
+      return;
+    }
+
+    if (isBanned) {
+      router.replace("/banned");
+    } else {
+      router.replace("/");
+    }
+  }, [isBanned, router, data]);
 
   if (isLoading) return <Loader open={true} />;
 
-  if (!user) {
-    router.replace("/");
-    return <Loader open={true} />;
-  }
-
-  if (!user.isBanned) return <Loader open={true} />;
-
-  const formattedBanUntil = user.banUntil
-    ? new Date(user.banUntil).toLocaleString(i18n.resolvedLanguage)
+  const formattedBanUntil = data?.user?.banUntil
+    ? new Date(data?.user.banUntil).toLocaleString(i18n.resolvedLanguage)
     : t("pages.auth.banned.unknown_period");
 
   const handleLogout = () => {

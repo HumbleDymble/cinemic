@@ -8,19 +8,28 @@ import { Loader } from "@/client/shared/ui";
 
 export function IsGuest({ children }: { children: ReactNode }) {
   const router = useRouter();
-  const { data, isLoading } = useHandleAuthorizationQuery();
+  const { data, isLoading, isError } = useHandleAuthorizationQuery();
 
   const user = data?.user;
-  const isAuthed = Boolean(user?._id);
+
+  const isAuthed = data?.user?._id;
+  const isBanned = data?.user?.isBanned;
 
   useEffect(() => {
+    if (isLoading) return;
+    if (isError) return;
     if (!isAuthed) return;
-    router.replace(user?.isBanned ? "/banned" : "/");
-  }, [isAuthed, user?.isBanned, router]);
 
-  if (isLoading) return <Loader open={true} />;
+    if (user?.isBanned) {
+      router.replace("/banned");
+    } else {
+      router.replace("/");
+    }
+  }, [isLoading, isError, data, isBanned, router]);
 
-  if (isAuthed) return <Loader open={true} />;
+  if (isLoading) return <Loader open />;
+
+  if (!isError && isAuthed) return <Loader open />;
 
   return <>{children}</>;
 }

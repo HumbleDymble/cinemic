@@ -2,35 +2,27 @@
 
 import type { ReactNode } from "react";
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useHandleAuthorizationQuery } from "@/client/entities/user";
 import { Loader } from "@/client/shared/ui";
 
 export function IsAuthenticated({ children }: { children: ReactNode }) {
   const router = useRouter();
-  const { data, isLoading } = useHandleAuthorizationQuery();
+  const { data, isLoading, isError } = useHandleAuthorizationQuery();
+  const pathname = usePathname();
 
-  const user = data?.user;
-  const isAuthed = Boolean(user?._id);
-  const isBanned = Boolean(user?.isBanned);
+  const isAuthed = data?.user?._id;
+  const isBanned = data?.user?.isBanned;
 
   useEffect(() => {
-    if (isBanned) {
-      router.replace("/banned");
-      return;
-    }
-    if (!isLoading && !isAuthed) {
-      router.replace("/auth/signin");
-    }
+    if (!isAuthed) return;
 
-    if (isAuthed) {
+    if ((isAuthed && pathname === "/auth/signin") || (isAuthed && pathname === "/auth/signup")) {
       router.replace("/");
     }
-  }, [isBanned, isAuthed, isLoading, router]);
+  }, [isLoading, isError, data, isBanned, router]);
 
-  if (isLoading) return <Loader open={true} />;
-
-  if (isBanned) return <Loader open={true} />;
+  if (isLoading) return <Loader open />;
 
   return <>{children}</>;
 }
