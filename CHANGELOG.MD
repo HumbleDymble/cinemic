@@ -1,6 +1,8 @@
 # [1.0.1] - 2026-01-08
 
 * Fixed redirect for non-authenticated, authenticated and banned `User`
+* Deleted unused configs
+* Updated deps
 
 # [1.0.0] - 2026-01-06
 
