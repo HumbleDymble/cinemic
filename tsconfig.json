@@ -40,7 +40,9 @@
     "build/web/types/**/*.ts",
     "build/web/dev/types/**/*.ts",
     "src/client/**/*.ts",
-    "src/client/**/*.tsx"
+    "src/client/**/*.tsx",
+    "src/app/**/*.ts",
+    "src/app/**/*.tsx"
   ],
   "exclude": [
     "node_modules"
