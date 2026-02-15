@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { Notification } from "~/entities/notification/index.js";
 
 export const getUnreadNotifications = async (req: Request, res: Response) => {

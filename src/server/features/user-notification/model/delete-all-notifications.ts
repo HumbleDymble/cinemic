@@ -1,5 +1,5 @@
 import { Types } from "mongoose";
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { Notification } from "~/entities/notification/index.js";
 
 export const deleteAllNotifications = async (req: Request, res: Response) => {

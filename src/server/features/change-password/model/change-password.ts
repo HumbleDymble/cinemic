@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { User, UserToken } from "~/entities/user/index.js";
 import { env } from "~/shared/config/index.js";
 

@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { env } from "~/shared/config/index.js";
 
 export const v14GetSearch = async (req: Request, res: Response) => {

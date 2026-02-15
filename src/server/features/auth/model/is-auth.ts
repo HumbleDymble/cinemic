@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { NextFunction, Request, Response } from "express";
+import type { NextFunction, Request, Response } from "express";
 import { generateToken } from "./lib.js";
 import { UserToken } from "~/entities/user/index.js";
 import { env } from "~/shared/config/index.js";

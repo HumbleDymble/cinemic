@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { FriendList } from "~/entities/user/index.js";
 
 const performFriendAction = async (

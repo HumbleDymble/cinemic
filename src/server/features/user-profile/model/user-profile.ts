@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { Rating } from "~/entities/rating/index.js";
 import { Watchlist } from "~/entities/watchlist/index.js";
 import { Review } from "~/entities/review/index.js";

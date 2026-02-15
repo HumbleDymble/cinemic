@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 
 export const reAuth = async (req: Request, res: Response) => {
   const user = req.user;

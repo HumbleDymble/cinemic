@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { Watchlist } from "~/entities/watchlist/index.js";
 
 export const addToWatchlist = async (req: Request, res: Response) => {

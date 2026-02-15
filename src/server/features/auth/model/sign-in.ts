@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { v4 } from "uuid";
 import { generateToken } from "./lib.js";

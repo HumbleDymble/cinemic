@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { User } from "~/entities/user/index.js";
 
 export const adminGetUsers = async (req: Request, res: Response) => {

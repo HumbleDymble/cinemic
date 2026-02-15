@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { Review } from "~/entities/review/index.js";
 
 export const moderatorGetReviews = async (req: Request, res: Response) => {

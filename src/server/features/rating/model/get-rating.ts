@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { Rating } from "~/entities/rating/index.js";
 
 export const getRating = async (req: Request, res: Response) => {

@@ -1,3 +1,9 @@
+# [1.0.2] - 2025-02-15
+
+* Fixed case-sensitive
+* Fixed import types
+* Update deps
+
 # [1.0.1] - 2025-01-06
 
 * Set explicit `import type` to config files

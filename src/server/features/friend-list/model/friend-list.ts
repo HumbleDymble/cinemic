@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { FriendList } from "~/entities/user/index.js";
 
 export const friendList = async (req: Request, res: Response) => {

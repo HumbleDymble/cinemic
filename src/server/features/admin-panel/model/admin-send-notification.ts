@@ -1,5 +1,5 @@
 import { Types } from "mongoose";
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { pushNotifications } from "~/features/user-notification/index.js";
 import { Notification } from "~/entities/notification/index.js";
 

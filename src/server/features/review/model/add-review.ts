@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { MediaDetail } from "~/entities/media-details/index.js";
 import { Review } from "~/entities/review/index.js";
 

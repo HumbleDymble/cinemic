@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import type { NextFunction, Request, Response } from "express";
 import { User } from "~/entities/user/index.js";
 
 export const isModerator = async (req: Request, res: Response, next: NextFunction) => {

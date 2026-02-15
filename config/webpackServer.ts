@@ -42,10 +42,7 @@ export const webpackServer = (options: IServer): Configuration => {
       ],
     },
     resolve: {
-      extensions: [".js", ".ts", ".json"],
-      extensionAlias: {
-        ".js": [".ts", ".js"],
-      },
+      extensions: [".js", ".ts"],
       alias: { "~": pathServer.src },
     },
     optimization: {

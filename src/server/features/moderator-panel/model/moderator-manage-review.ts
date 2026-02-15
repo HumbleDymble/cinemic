@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { pushNotifications } from "~/features/user-notification/index.js";
 import { User } from "~/entities/user/index.js";
 import { Review } from "~/entities/review/index.js";

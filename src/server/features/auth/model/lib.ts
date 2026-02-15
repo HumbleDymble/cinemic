@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { NextFunction, Request, Response } from "express";
+import type { NextFunction, Request, Response } from "express";
 import { env } from "~/shared/config/index.js";
 
 export const validateEmailFormat = async (req: Request, res: Response, next: NextFunction) => {

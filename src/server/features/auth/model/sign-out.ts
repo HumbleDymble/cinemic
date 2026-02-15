@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { UserToken } from "~/entities/user/index.js";
 
 export const signOut = async (req: Request, res: Response) => {

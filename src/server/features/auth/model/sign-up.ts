@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { FriendList, User } from "~/entities/user/index.js";
 
 export const signUp = async (req: Request, res: Response) => {
